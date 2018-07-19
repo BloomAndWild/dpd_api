@@ -1,0 +1,64 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://public-ws-stage.dpd.com/services/ParcelLifeCycleService/V2_0/
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://dpd.com/common/service/types/Authentication/2.0" xmlns:ns1="http://dpd.com/common/service/types/ParcelLifeCycleService/2.0">
+          <soapenv:Header>
+            <ns:authentication>
+              <delisId><USERNAME></delisId>
+              <authToken>wrongtoken</authToken>
+              <messageLanguage>en_EN</messageLanguage>
+            </ns:authentication>
+          </soapenv:Header>
+          <soapenv:Body>
+            <ns1:getTrackingData>
+              <parcelLabelNumber>09981122330100</parcelLabelNumber>
+            </ns1:getTrackingData>
+          </soapenv:Body>
+        </soapenv:Envelope>
+    headers:
+      User-Agent:
+      - HTTPClient/1.0 (2.8.3, ruby 2.5.1 (2018-03-29))
+      Accept:
+      - "*/*"
+      Date:
+      - Thu, 19 Jul 2018 17:18:55 GMT
+      Soapaction:
+      - '"http://dpd.com/common/service/ParcelLifeCycleService/2.0/getTrackingData"'
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '652'
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      Date:
+      - Thu, 19 Jul 2018 17:18:55 GMT
+      Server:
+      - Jetty(6.1.x)
+      Content-Type:
+      - text/xml; charset=utf-8
+      Vary:
+      - Accept-Encoding
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |-
+        <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><soap:Fault><faultcode>soap:detail</faultcode><faultstring>Fault occured</faultstring><detail><ns:authenticationFault xmlns:ns="http://dpd.com/common/service/types/Authentication/2.0">
+        <errorCode>LOGIN_5</errorCode>
+        <errorMessage>The authtoken is invalid</errorMessage>
+        </ns:authenticationFault>
+        </detail></soap:Fault></soap:Body></soap:Envelope>
+    http_version: 
+  recorded_at: Thu, 19 Jul 2018 17:18:56 GMT
+recorded_with: VCR 4.0.0

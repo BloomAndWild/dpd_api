@@ -14,6 +14,18 @@ describe DPDApi::RequestHandler do
         )
       end
     end
+
+    it "returns an error" do
+      VCR.use_cassette('get_auth_error') do
+        DPDApi::Client.configure do |config|
+          config.password = "wrongpassword"
+        end
+
+        expect {
+          described_class.request(:get_auth)
+        }.to raise_error(/The combination of user and password is invalid/)
+      end
+    end
   end
 
   context "store_orders" do
@@ -60,6 +72,29 @@ describe DPDApi::RequestHandler do
         )
         expect(response.shipment_info[:status]).to eq("SHIPMENT")
         expect(response.status_info.last[:status]).to eq("DELIVERED")
+      end
+    end
+
+    it "fetches tracking data" do
+      VCR.use_cassette('get_tracking_data_wrong_token') do
+        expect {
+          described_class.request(
+            :get_tracking_data,
+            token: "wrongtoken",
+            tracking_number: "09981122330100",
+          )
+        }.to raise_error(/The authtoken is invalid/)
+      end
+    end
+
+    it "returns nothing if number is wrong" do
+      VCR.use_cassette('get_tracking_data_wrong_number') do
+        response = described_class.request(
+          :get_tracking_data,
+          token: "LTgwMTUyMjgwNzI4NzY0ODMwOTERMTUzMTk3OTQ0MTA0NwRR",
+          tracking_number: "00000000000000",
+        )
+        expect(response.shipment_info).to eq({})
       end
     end
   end

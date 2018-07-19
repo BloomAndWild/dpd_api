@@ -33,6 +33,7 @@ module DPDApi
         log: config.logger.level.zero?,
         pretty_print_xml: true,
         follow_redirects: true,
+        raise_errors: false,
       )
     end
 
@@ -45,20 +46,21 @@ module DPDApi
     end
 
     def parse_response raw_response
-      response = begin
-        case request_name
-        when :get_auth
-          DPDApi::Responses::GetAuth.new(raw_response)
-        when :store_orders
-          DPDApi::Responses::StoreOrders.new(raw_response)
-        when :get_tracking_data
-          DPDApi::Responses::GetTrackingData.new(raw_response)
-        end
-      rescue => ex
-        raise DPDApi::DPDError.new(ex.message, body: raw_response.body)
+      if raw_response.body.key?(:fault)
+        fault = DPDApi::Responses::Fault.new(raw_response)
+        raise DPDApi::DPDError.new(fault.message, status_code: fault.code, body: fault.body)
       end
 
-      response
+      case request_name
+      when :get_auth
+        DPDApi::Responses::GetAuth.new(raw_response)
+      when :store_orders
+        DPDApi::Responses::StoreOrders.new(raw_response)
+      when :get_tracking_data
+        DPDApi::Responses::GetTrackingData.new(raw_response)
+      end
+    rescue => ex
+      raise DPDApi::DPDError.new(ex.message, body: raw_response.body)
     end
 
     def security_attrs
