@@ -1,0 +1,3 @@
+module DPDApi
+  VERSION = "0.0.1"
+end

@@ -1,0 +1,453 @@
+<?xml version='1.0' encoding='UTF-8'?><definitions name="ParcelLifeCycleService" targetNamespace="http://dpd.com/common/service/ParcelLifeCycleService/2.0" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://dpd.com/common/service/ParcelLifeCycleService/2.0" xmlns:types="http://dpd.com/common/service/types/ParcelLifeCycleService/2.0" xmlns:types_authentication="http://dpd.com/common/service/types/Authentication/2.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<wsdl:documentation>
+      <version name="2.0.0">
+- Changed parameter parcellabelnumber to parcelLabelNumber for method getTrackingData
+- New method getParcelLabelNumberForWebNumber added
+      </version>
+   </wsdl:documentation>
+  <types>
+<xsd:schema targetNamespace="http://dpd.com/common/service/ParcelLifeCycleService/2.0" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://dpd.com/common/service/ParcelLifeCycleService/2.0" xmlns:types="http://dpd.com/common/service/types/ParcelLifeCycleService/2.0" xmlns:types_authentication="http://dpd.com/common/service/types/Authentication/2.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="http://dpd.com/common/service/types/ParcelLifeCycleService/2.0" schemaLocation="https://public-ws-stage.dpd.com/services/ParcelLifeCycleService/V2_0/?xsd=ParcelLifeCycleService-Public_2_0.xsd">
+			</xsd:import>
+			<xsd:import namespace="http://dpd.com/common/service/types/Authentication/2.0" schemaLocation="https://public-ws-stage.dpd.com/services/ParcelLifeCycleService/V2_0/?xsd=Authentication_2_0.xsd">
+         </xsd:import>
+		</xsd:schema>
+  </types>
+  <message name="getParcelLabelNumberForWebNumberFaultMsg">
+    <part element="types:dataFault" name="parameters">
+    </part>
+  </message>
+  <message name="getTrackingData">
+    <part element="types:getTrackingData" name="parameters">
+    </part>
+  </message>
+  <message name="AuthenticationFaultMsg">
+    <part element="types_authentication:authenticationFault" name="authenticationFault">
+    </part>
+  </message>
+  <message name="SystemFaultMsg">
+    <part element="types:systemFault" name="systemFault">
+<wsdl:documentation>Possible error codes:
+SYSTEM_ERROR - System error
+</wsdl:documentation>
+    </part>
+  </message>
+  <message name="getParcelLabelNumberForWebNumber">
+    <part element="types:getParcelLabelNumberForWebNumber" name="parameters">
+    </part>
+  </message>
+  <message name="getTrackingDataFaultMsg">
+    <part element="types:dataFault" name="parameters">
+    </part>
+  </message>
+  <message name="getTrackingDataResponse">
+    <part element="types:getTrackingDataResponse" name="parameters">
+    </part>
+  </message>
+  <message name="getParcelLabelNumberForWebNumberHeader">
+    <part element="types_authentication:authentication" name="authentication">
+    </part>
+  </message>
+  <message name="getParcelLabelNumberForWebNumberResponse">
+    <part element="types:getParcelLabelNumberForWebNumberResponse" name="parameters">
+    </part>
+  </message>
+  <message name="getTrackingDataHeader">
+    <part element="types_authentication:authentication" name="authentication">
+    </part>
+  </message>
+  <portType name="ParcelLifeCycleService">
+    <operation name="getTrackingData">
+<wsdl:documentation>
+Deliver parcel tracking data for a parcel label number.
+An exception is thrown, if an error has occured.
+
+Sample request:
+
+SOAP:
+
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:ns="http://dpd.com/common/service/types/Authentication/2.0"
+xmlns:ns1="http://dpd.com/common/service/types/ParcelLifeCycleService/2.0">
+   &lt;soapenv:Header>
+      &lt;ns:authentication>
+         &lt;delisId>your delisId&lt;/delisId>
+         &lt;authToken>your authToken&lt;/authToken>
+         &lt;messageLanguage>en_EN&lt;/messageLanguage>
+      &lt;/ns:authentication>
+   &lt;/soapenv:Header>
+   &lt;soapenv:Body>
+      &lt;ns1:getTrackingData>
+         &lt;parcelLabelNumber>01405400945058&lt;/parcelLabelNumber>
+      &lt;/ns1:getTrackingData>
+   &lt;/soapenv:Body>
+&lt;/soapenv:Envelope>
+
+
+REST:
+
+URL: &lt;server:port>&lt;path>/ParcelLifeCycleService/V2_0/getTrackingData
+JSON data for POST request (for GET request data has to be sent with parameter "request" and for
+JSONP with parameter "jsonpcallback" to obtain a padding function name):
+
+{  "authentication" : {
+    "delisId" : "&lt;your delisId>",
+    "authToken" : "&lt;your authToken>",
+    "messageLanguage" : "en_EN"
+   },
+   "getTrackingData" : {
+     "parcelLabelNumber" : "01405400945058"
+   }
+}
+
+REST result without error:
+
+{
+   "getTrackingDataResponse": {"trackingresult":    {
+      "shipmentInfo":       {
+         "receiver": null,
+         "predictInformation": null,
+         "serviceDescription":          {
+            "label":             {
+               "content": "Your DPD service: ",
+               "bold": false,
+               "paragraph": false
+            },
+            "content": [            {
+               "content": "DPD CLASSIC",
+               "bold": false,
+               "paragraph": false
+            }],
+            "linkTarget": ""
+         },
+         "additionalServiceElements": null,
+         "status": "SHIPMENT",
+         "label":          {
+            "content": "Shipment information",
+            "bold": true,
+            "paragraph": false
+         },
+         "description":          {
+            "label": null,
+            "content": [            {
+               "content": "Details of your shipment",
+               "bold": false,
+               "paragraph": false
+            }],
+            "linkTarget": ""
+         },
+         "statusHasBeenReached": false,
+         "isCurrentStatus": false,
+         "showContactInfo": false,
+         "location": null,
+         "date": null,
+         "normalItems": null,
+         "importantItems": null,
+         "errorItems": null
+      },
+      "statusInfo":       [
+                  {
+            "status": "ACCEPTED",
+            "label":             {
+               "content": "Parcel handed to DPD",
+               "bold": true,
+               "paragraph": false
+            },
+            "description":             {
+               "label": null,
+               "content": [               {
+                  "content": "DPD has received your parcel.",
+                  "bold": false,
+                  "paragraph": false
+               }],
+               "linkTarget": ""
+            },
+            "statusHasBeenReached": true,
+            "isCurrentStatus": false,
+            "showContactInfo": false,
+            "location": null,
+            "date": null,
+            "normalItems": null,
+            "importantItems": null,
+            "errorItems": null
+         },
+                  {
+            "status": "AT_SENDING_DEPOT",
+            "label":             {
+               "content": "At dispatch depot",
+               "bold": true,
+               "paragraph": false
+            },
+            "description":             {
+               "label": null,
+               "content": [               {
+                  "content": "The parcel is at the dispatch depot.",
+                  "bold": false,
+                  "paragraph": false
+               }],
+               "linkTarget": ""
+            },
+            "statusHasBeenReached": true,
+            "isCurrentStatus": false,
+            "showContactInfo": false,
+            "location":             {
+               "content": "Duisburg (DE)",
+               "bold": true,
+               "paragraph": false
+            },
+            "date":             {
+               "content": "16/08/2012, 17:00 ",
+               "bold": true,
+               "paragraph": false
+            },
+            "normalItems": null,
+            "importantItems": null,
+            "errorItems": null
+         },
+                  {
+            "status": "ON_THE_ROAD",
+            "label":             {
+               "content": "In transit",
+               "bold": true,
+               "paragraph": false
+            },
+            "description":             {
+               "label": null,
+               "content": [               {
+                  "content": "Your parcel is on its way to the recipient depot.",
+                  "bold": false,
+                  "paragraph": false
+               }],
+               "linkTarget": ""
+            },
+            "statusHasBeenReached": true,
+            "isCurrentStatus": false,
+            "showContactInfo": false,
+            "location": null,
+            "date": null,
+            "normalItems": null,
+            "importantItems": null,
+            "errorItems": null
+         },
+                  {
+            "status": "AT_DELIVERY_DEPOT",
+            "label":             {
+               "content": "At recipient depot",
+               "bold": true,
+               "paragraph": false
+            },
+            "description":             {
+               "label": null,
+               "content": [               {
+                  "content": "The parcel is at the recipient depot.",
+                  "bold": false,
+                  "paragraph": false
+               }],
+               "linkTarget": ""
+            },
+            "statusHasBeenReached": true,
+            "isCurrentStatus": true,
+            "showContactInfo": false,
+            "location":             {
+               "content": "Gudensberg (DE)",
+               "bold": true,
+               "paragraph": false
+            },
+            "date":             {
+               "content": "17/08/2012, 07:08 ",
+               "bold": true,
+               "paragraph": false
+            },
+            "normalItems": null,
+            "importantItems": null,
+            "errorItems": null
+         },
+                  {
+            "status": "DELIVERED",
+            "label":             {
+               "content": "Parcel delivered",
+               "bold": true,
+               "paragraph": false
+            },
+            "description":             {
+               "label": null,
+               "content": [               {
+                  "content": "Your parcel has been delivered successfully.",
+                  "bold": false,
+                  "paragraph": false
+               }],
+               "linkTarget": ""
+            },
+            "statusHasBeenReached": false,
+            "isCurrentStatus": false,
+            "showContactInfo": false,
+            "location": null,
+            "date": null,
+            "normalItems": null,
+            "importantItems": null,
+            "errorItems": null
+         }
+      ],
+      "contactInfo": null
+   }},
+   "status":    {
+      "type": "OK",
+      "code": "200",
+      "message": "valid"
+   }
+}
+
+REST result if an error occurred:
+
+{"status": {
+   "type": "SystemFault",
+   "code": "&lt;Error code, e.g. 100>",
+   "message": "&lt;Error message>"
+}}
+
+Additional REST state on system error:
+
+Error-Code: 100
+Error-Type: SystemFault
+Error-Message: &lt;Message describing the error>
+</wsdl:documentation>
+      <input message="tns:getTrackingData">
+    </input>
+      <output message="tns:getTrackingDataResponse">
+    </output>
+      <fault message="tns:AuthenticationFaultMsg" name="authenticationFault">
+    </fault>
+      <fault message="tns:SystemFaultMsg" name="systemFault">
+    </fault>
+      <fault message="tns:getTrackingDataFaultMsg" name="dataFault">
+    </fault>
+    </operation>
+    <operation name="getParcelLabelNumberForWebNumber">
+<wsdl:documentation>
+Provides the parcel label number for the given web number.
+
+Sample request:
+
+SOAP:
+
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:ns="http://dpd.com/common/service/types/ParcelLifeCycleService/2.0">
+   &lt;soapenv:Header/>
+   &lt;soapenv:Body>
+      &lt;ns:getParcelLabelNumberForWebNumber>
+         &lt;delisId>delis123&lt;/delisId>
+         &lt;webNumber>IO1234567&lt;/webNumber>
+         &lt;messageLanguage>en_EN&lt;/messageLanguage>
+      &lt;/ns:getParcelLabelNumberForWebNumber>
+   &lt;/soapenv:Body>
+&lt;/soapenv:Envelope>
+         
+REST:
+
+URL: &lt;server:port>&lt;path>/ParcelLifeCycleService/V2_0/getParcelLabelNumberForWebNumber
+JSON data for POST request (for GET request data has to be sent with parameter "request" and for
+JSONP with parameter "jsonpcallback" to obtain a padding function name):
+
+{  "authentication" : {
+    "delisId" : "&lt;your delisId>",
+    "authToken" : "&lt;your authToken>",
+    "messageLanguage" : "en_EN"
+   },
+   "getParcelLabelNumberForWebNumber" : {
+     "webNumber" : "IO1234567"
+   }
+}
+
+REST result without error:
+
+{
+   "getParcelLabelNumberForWebNumberResponse": {"parcelLabelNumber": "01234567890123"},
+   "status":    {
+      "type": "OK",
+      "code": "200",
+      "message": "valid"
+   }
+}
+
+REST result if an error occurred:
+
+{"status": {
+   "type": "SystemFault",
+   "code": "&lt;Error code, e.g. 100>",
+   "message": "&lt;Error message>"
+}}
+
+Additional REST state on system error:
+
+Error-Code: 100
+Error-Type: SystemFault
+Error-Message: &lt;Message describing the error>
+
+</wsdl:documentation>
+      <input message="tns:getParcelLabelNumberForWebNumber">
+    </input>
+      <output message="tns:getParcelLabelNumberForWebNumberResponse">
+    </output>
+      <fault message="tns:AuthenticationFaultMsg" name="authenticationFault">
+    </fault>
+      <fault message="tns:SystemFaultMsg" name="systemFault">
+    </fault>
+      <fault message="tns:getParcelLabelNumberForWebNumberFaultMsg" name="dataFault">
+    </fault>
+    </operation>
+  </portType>
+  <binding name="ParcelLifeCycleService_2_0_SOAP" type="tns:ParcelLifeCycleService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="getTrackingData">
+      <soap:operation soapAction="http://dpd.com/common/service/ParcelLifeCycleService/2.0/getTrackingData"/>
+      <input>
+        <soap:header message="tns:getTrackingDataHeader" part="authentication" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="authenticationFault">
+        <soap:fault name="authenticationFault" use="literal"/>
+      </fault>
+      <fault name="systemFault">
+        <soap:fault name="systemFault" use="literal"/>
+      </fault>
+      <fault name="dataFault">
+        <soap:fault name="dataFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="getParcelLabelNumberForWebNumber">
+      <soap:operation soapAction="http://dpd.com/common/service/ParcelLifeCycleService/2.0/getParcelLabelNumberForWebNumber"/>
+      <input>
+        <soap:header message="tns:getParcelLabelNumberForWebNumberHeader" part="authentication" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="authenticationFault">
+        <soap:fault name="authenticationFault" use="literal"/>
+      </fault>
+      <fault name="systemFault">
+        <soap:fault name="systemFault" use="literal"/>
+      </fault>
+      <fault name="dataFault">
+        <soap:fault name="dataFault" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <service name="ParcelLifeCycleService-Public_2_0">
+<wsdl:documentation>
+         <version>2.0.0</version>
+      </wsdl:documentation>
+    <port binding="tns:ParcelLifeCycleService_2_0_SOAP" name="ParcelLifeCycleService_2_0_SOAP">
+      <soap:address location="https://public-ws-stage.dpd.com/services/ParcelLifeCycleService/V2_0/"/>
+    </port>
+  </service>
+    <jaxws:bindings>
+      <jaxws:package name="com.dpd.common.ws_public.parcellifecycleservice.v2_0"/>
+   </jaxws:bindings>
+</definitions>

@@ -1,0 +1,598 @@
+<?xml version='1.0' encoding='UTF-8'?><definitions name="ParcelShopFinderService" targetNamespace="http://dpd.com/common/service/ParcelShopFinderService/5.0" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://dpd.com/common/service/ParcelShopFinderService/5.0" xmlns:types="http://dpd.com/common/service/types/ParcelShopFinderService/5.0" xmlns:types_authentication="http://dpd.com/common/service/types/Authentication/2.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<wsdl:documentation>
+		<version name="5.0">
+- Integration of pudo ID.
+- Integration of new services structure to support new services:
+  - Shop-Ident
+  - Dropoff Offline
+- Expansion of cross border search.
+		</version>
+	</wsdl:documentation>
+  <types>
+<xsd:schema targetNamespace="http://dpd.com/common/service/ParcelShopFinderService/5.0" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://dpd.com/common/service/ParcelShopFinderService/5.0" xmlns:types="http://dpd.com/common/service/types/ParcelShopFinderService/5.0" xmlns:types_authentication="http://dpd.com/common/service/types/Authentication/2.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="http://dpd.com/common/service/types/ParcelShopFinderService/5.0" schemaLocation="https://public-ws-stage.dpd.com/services/ParcelShopFinderService/V5_0/?xsd=ParcelShopFinderService-Public_5_0.xsd">
+			</xsd:import>
+         <xsd:import namespace="http://dpd.com/common/service/types/Authentication/2.0" schemaLocation="https://public-ws-stage.dpd.com/services/ParcelShopFinderService/V5_0/?xsd=Authentication_2_0.xsd">
+         </xsd:import>
+         </xsd:schema>
+  </types>
+  <message name="getAvailableServicesResponse">
+    <part element="types:getAvailableServicesResponse" name="parameters">
+    </part>
+  </message>
+  <message name="findCitiesRequest">
+    <part element="types:findCities" name="parameters">
+    </part>
+  </message>
+  <message name="findParcelShopsRequest">
+    <part element="types:findParcelShops" name="parameters">
+    </part>
+  </message>
+  <message name="findParcelShopsRequestHeader">
+    <part element="types_authentication:authentication" name="authentication">
+    </part>
+  </message>
+  <message name="systemFaultMsg">
+    <part element="types:systemFault" name="systemFault">
+    </part>
+  </message>
+  <message name="authenticationFaultMsg">
+    <part element="types_authentication:authenticationFault" name="fault">
+    </part>
+  </message>
+  <message name="getAvailableServicesRequest">
+    <part element="types:getAvailableServices" name="parameters">
+    </part>
+  </message>
+  <message name="findParcelShopsByGeoDataRequestHeader">
+    <part element="types_authentication:authentication" name="authentication">
+    </part>
+  </message>
+  <message name="findCitiesResponse">
+    <part element="types:findCitiesResponse" name="parameters">
+    </part>
+  </message>
+  <message name="findCitiesRequestHeader">
+    <part element="types_authentication:authentication" name="authentication">
+    </part>
+  </message>
+  <message name="findParcelShopsResponse">
+    <part element="types:findParcelShopsResponse" name="parameters">
+    </part>
+  </message>
+  <message name="findParcelShopsByGeoDataRequest">
+    <part element="types:findParcelShopsByGeoData" name="parameters">
+    </part>
+  </message>
+  <message name="dataFaultMsg">
+    <part element="types:dataFault" name="fault">
+    </part>
+  </message>
+  <message name="findParcelShopsByGeoDataResponse">
+    <part element="types:findParcelShopsByGeoDataResponse" name="parameters">
+    </part>
+  </message>
+  <message name="getAvailableServicesRequestHeader">
+    <part element="types_authentication:authentication" name="authentication">
+    </part>
+  </message>
+  <portType name="ParcelShopFinderService">
+    <operation name="findParcelShops">
+<wsdl:documentation>
+Find the DPD parcel shops by country/countries, zipCode and city and additional criteria like flags for properties of parcel shops.
+The search country can either domestic country or cross border country/countries for the search.
+
+Sample request:
+
+SOAP:
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://dpd.com/common/service/types/Authentication/2.0" xmlns:ns1="http://dpd.com/common/service/types/ParcelShopFinderService/5.0">
+   &lt;soapenv:Header>
+      &lt;ns:authentication>
+         &lt;delisId>&lt;your delisId>&lt;/delisrId>
+         &lt;authToken>&lt;your authToken>&lt;/authToken>
+         &lt;messageLanguage>de_DE&lt;/messageLanguage>
+      &lt;/ns:authentication>
+   &lt;/soapenv:Header>
+   &lt;soapenv:Body>
+      &lt;ns1:findParcelShops>
+	      &lt;country>DE&lt;/country>
+	      &lt;zipCode>60388&lt;/zipCode>
+	      &lt;street>Casimirstraße&lt;/street>
+	      &lt;limit>10&lt;/limit>
+	      &lt;availabilityDate>2014-11-10 16:00&lt;/availabilityDate>
+	      &lt;hideClosed>true&lt;/hideClosed>
+      &lt;/ns1:findParcelShops>
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope>
+
+REST:
+URL: &lt;server:port>&lt;path>/ParcelShopFinderService/V5_0/findParcelShops
+JSON-Data for POST-Request (for GET-Request data must send with parameter "request" and for
+JSONP the Parameter "jsonpcallback" can be used, to send a padding function name):
+
+{  "authentication" : {
+    "delisId" : "&lt;your delisId>",
+    "authToken" : "&lt;authtoken, get by LoginService>",
+    "messageLanguage" : "de_DE"
+   },
+  "findParcelShops": {
+    "country": "DE",
+    "zipCode": "60388",
+    "street": "Casimirstraße",
+    "limit": "10",
+    "availabilityDate": "2014-11-10 16:00",
+    "hideClosed": "true"
+  }
+}
+
+REST-Result, without error:
+
+{
+   "findParcelShopsResponse": {"parcelShop": [   {
+      "parcelShopId": 272195,
+      "pudoId": "DE16935",
+      "customerNo": "01600000000238770",
+      "companyDepotDatabaseId": 132,
+      "company": "Hintergässer Hof",
+      "street": "Alt Bischofsheim",
+      "houseNo": "22",
+      "country": "DE",
+      "countryNum": 276,
+      "state": "Hessen",
+      "zipCode": "63477",
+      "city": "Maintal",
+      "phone": "",
+      "fax": "",
+      "email": "",
+		...
+      "openingHours":       [
+                  {
+            "weekday": "Mittwoch",
+            "weekdayNum": 3,
+            "openMorning": "09:00",
+            "closeMorning": "13:00",
+            "openAfternoon": "15:00",
+            "closeAfternoon": "18:00",
+            "dayOff": false
+         },
+			...
+      ],
+      "services": {"service":       [
+                  {
+            "code": "100",
+            "available": true
+         },
+                  {
+            "code": "991",
+            "available": true
+         },
+                  {
+            "code": "202",
+            "available": true,
+            "serviceDetail":             [
+               {"code": "075"},
+               {"code": "048"},
+               {"code": "095"},
+               ...
+            ]
+         }
+      ]}
+   }
+   ...
+   }]},
+   "status":    {
+      "type": "OK",
+      "code": "200",
+      "message": "valid"
+   }
+}
+
+REST-Result, if an error occurred:
+
+{"status": {
+   "type": "&lt;Fault type, e.g. DataFault",
+   "code": "&lt;Error code, e.g. COMMON_1>",
+   "message": "&lt;Error message, e.g. invalid data>"
+}}
+
+Additional REST-State on system error:
+Error-Code: 100
+Error-Type: DataFault
+Error-Message: &lt;Message, which describe the error>
+			</wsdl:documentation>
+      <input message="tns:findParcelShopsRequest">
+    </input>
+      <output message="tns:findParcelShopsResponse">
+    </output>
+      <fault message="tns:authenticationFaultMsg" name="authenticationFault">
+    </fault>
+      <fault message="tns:systemFaultMsg" name="systemFault">
+    </fault>
+      <fault message="tns:dataFaultMsg" name="dataFault">
+    </fault>
+    </operation>
+    <operation name="findParcelShopsByGeoData">
+<wsdl:documentation>
+Find the DPD parcel shops by geo data and additional criteria like flags for properties of parcel shops.
+The search country can either domestic country or cross border country/countries for the search.
+
+Sample request:
+
+SOAP:
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://dpd.com/common/service/types/Authentication/2.0" xmlns:ns1="http://dpd.com/common/service/types/ParcelShopFinderService/5.0">
+   &lt;soapenv:Header>
+      &lt;ns:authentication>
+         &lt;delisId>&lt;your delisId>&lt;/delisrId>
+         &lt;authToken>&lt;your authToken>&lt;/authToken>
+         &lt;messageLanguage>de_DE&lt;/messageLanguage>
+      &lt;/ns:authentication>
+   &lt;/soapenv:Header>
+   &lt;soapenv:Body>
+      &lt;ns1:findParcelShopsByGeoData>
+         &lt;longitude>8.1&lt;/longitude>
+         &lt;latitude>50.9&lt;/latitude>
+         &lt;limit>1&lt;/limit>
+      &lt;/ns1:findParcelShopsByGeoData>
+   &lt;/soapenv:Body>
+&lt;/soapenv:Envelope>
+
+REST:
+URL: &lt;server:port>&lt;path>/ParcelShopFinderService/V5_0/findParcelShopsByGeoData
+JSON-Data for POST-Request (for GET-Request data must send with parameter "request" and for
+JSONP the Parameter "jsonpcallback" can be used, to send a padding function name):
+
+{  "authentication" : {
+    "delisId" : "&lt;your delisId>",
+    "authToken" : "&lt;authtoken, get by LoginService>",
+    "messageLanguage" : "de_DE"
+   },
+   "findParcelShopsByGeoData" : {
+    "longitude": "8.1",
+    "latitude": "50.9",
+    "limit": "1"
+   }
+}
+
+REST-Result, without error:
+
+{
+   "findParcelShopsResponse": {"parcelShop": [   {
+   "parcelShopId": 273613,
+   "pudoId": "DE17530",
+   "customerNo": "90000008015717530",
+   "companyDepotDatabaseId": 129,
+   "company": "NKD Deutschland GmbH 2580",
+   "street": "Hauptmarkt",
+   "houseNo": "16-18",
+   "country": "DE",
+   "countryNum": 276,
+   "state": "Nordrhein-Westfalen",
+   "zipCode": "57076",
+   "city": "Siegen",
+   "phone": "",
+   "fax": "",
+   "email": "",
+   ...
+   "services": {"service":    [
+            {
+         "code": "100",
+         "available": true
+      },
+            {
+         "code": "991",
+         "available": true
+      },
+            {
+         "code": "200",
+         "available": true
+      }
+   ]}
+   ...
+   }]},
+   "status":    {
+      "type": "OK",
+      "code": "200",
+      "message": "valid"
+   }
+}
+
+REST-Result, if an error occurred:
+
+{"status": {
+   "type": "&lt;Fault type, e.g. DataFault",
+   "code": "&lt;Error code, e.g. COMMON_1>",
+   "message": "&lt;Error message, e.g. invalid data>"
+}}
+
+Additional REST-State on system error:
+Error-Code: 100
+Error-Type: DataFault
+Error-Message: &lt;Message, which describe the error>
+</wsdl:documentation>
+      <input message="tns:findParcelShopsByGeoDataRequest">
+    </input>
+      <output message="tns:findParcelShopsByGeoDataResponse">
+    </output>
+      <fault message="tns:authenticationFaultMsg" name="authenticationFault">
+    </fault>
+      <fault message="tns:systemFaultMsg" name="systemFault">
+    </fault>
+      <fault message="tns:dataFaultMsg" name="dataFault">
+    </fault>
+    </operation>
+    <operation name="findCities">
+<wsdl:documentation>Find cities with DPD parcel shops by country, zipCode and city.
+
+Sample request:
+
+SOAP:
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://dpd.com/common/service/types/Authentication/2.0" xmlns:ns1="http://dpd.com/common/service/types/ParcelShopFinderService/5.0">
+   &lt;soapenv:Header>
+      &lt;ns:authentication>
+         &lt;delisId>&lt;your delisId>&lt;/delisrId>
+         &lt;authToken>&lt;your authToken, get by LoginService>&lt;/authToken>
+         &lt;messageLanguage>de_DE&lt;/messageLanguage>
+      &lt;/ns:authentication>
+   &lt;/soapenv:Header>
+   &lt;soapenv:Body>
+      &lt;ns1:findCities>
+         &lt;country>DE&lt;/country>
+         &lt;zipCode>63741&lt;/zipCode>
+         &lt;city>Aschaffenburg&lt;/city>
+      &lt;/ns1:findCities>
+   &lt;/soapenv:Body>
+&lt;/soapenv:Envelope>
+
+REST:
+URL: &lt;server:port>&lt;path>/ParcelShopFinderService/V5_0/findCities
+JSON-Data for POST-Request (for GET-Request data must send with parameter "request" and for
+JSONP the Parameter "jsonpcallback" can be used, to send a padding function name):
+
+{  "authentication" : {
+    "delisId" : "&lt;your delisId>",
+    "authToken" : "&lt;your authToken, get by LoginService>",
+    "messageLanguage" : "de_DE"
+   },
+   "findCities" : {
+     "country" : "DE",
+     "zipCode" : "63741",
+     "city" : "Aschaffenburg"
+   }
+}
+
+REST-Result, without error:
+
+{
+   "findCitiesResponse": {
+   	"city": [
+            {
+         "country": "DE",
+         "countryNum": "276",
+         "zipCode": "63741",
+         "name": "Aschaffenburg",
+         "town": ""
+      },
+            {
+         "country": "DE",
+         "city": "Aschaffenburg",
+         "zipCode": "63741",
+         "district": "Damm"
+      },
+      ...
+   ]},
+   "status":    {
+      "type": "OK",
+      "code": "200",
+      "message": "valid"
+   }
+}
+
+REST-Result, if an error occurred:
+
+{"status": {
+   "type": "&lt;Fault type, e.g. DataFault",
+   "code": "&lt;Error code, e.g. COMMON_1>",
+   "message": "&lt;Error message, e.g. invalid data>"
+}}
+
+Additional REST-State on system error:
+Error-Code: 100
+Error-Type: SystemFault
+Error-Message: &lt;Message, which describe the error>
+			</wsdl:documentation>
+      <input message="tns:findCitiesRequest">
+    </input>
+      <output message="tns:findCitiesResponse">
+    </output>
+      <fault message="tns:authenticationFaultMsg" name="authenticationFault">
+    </fault>
+      <fault message="tns:systemFaultMsg" name="systemFault">
+    </fault>
+      <fault message="tns:dataFaultMsg" name="dataFault">
+    </fault>
+    </operation>
+    <operation name="getAvailableServices">
+<wsdl:documentation>
+Find available services of DPD parcel shops by country.
+
+Sample request:
+
+SOAP:
+&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://dpd.com/common/service/types/Authentication/2.0" xmlns:ns1="http://dpd.com/common/service/types/ParcelShopFinderService/5.0">
+   &lt;soapenv:Header>
+      &lt;ns:authentication>
+         &lt;delisId>&lt;your delisId>&lt;/delisrId>
+         &lt;authToken>&lt;your authToken>&lt;/authToken>
+         &lt;messageLanguage>de_DE&lt;/messageLanguage>
+      &lt;/ns:authentication>
+   &lt;/soapenv:Header>
+   &lt;soapenv:Body>
+      &lt;ns1:getAvailableServices />
+   &lt;/soapenv:Body>
+&lt;/soapenv:Envelope>
+
+REST:
+URL: &lt;server:port>&lt;path>/ParcelShopFinderService/V5_0/getAvailableServices
+JSON-Data for POST-Request (for GET-Request data must send with parameter "request" and for
+JSONP the Parameter "jsonpcallback" can be used, to send a padding function name):
+
+{  "authentication" : {
+    "delisId" : "&lt;your delisId>",
+    "authToken" : "&lt;authtoken, get by LoginService>",
+    "messageLanguage" : "de_DE"
+   },
+   "getAvailableServices" : {
+   }
+}
+
+REST-Result, without error:
+
+{
+  "getAvailableServicesResponse": {
+    "service": [
+      {
+        "code": "006",
+        "available": "true",
+        "description": "Express dropoff",
+        "serviceDetail": [
+          {
+            "code": "002",
+            "description": "Express cut off",
+          }
+        ]
+      },
+      {
+        "code": "003",
+        "available": "true",
+        "description": "COD",
+        "serviceDetail": [
+          {
+            "code": "001",
+            "description": "COD Payment mean",
+          }
+        ]
+      }
+    ]
+  }
+}
+
+REST-Result, if an error occurred:
+
+{"status": {
+   "type": "&lt;Fault type, e.g. DataFault",
+   "code": "&lt;Error code, e.g. COMMON_1>",
+   "message": "&lt;Error message, e.g. invalid data>"
+}}
+
+Additional REST-State on system error:
+Error-Code: 100
+Error-Type: DataFault
+Error-Message: &lt;Message, which describe the error>
+			</wsdl:documentation>
+      <input message="tns:getAvailableServicesRequest">
+    </input>
+      <output message="tns:getAvailableServicesResponse">
+    </output>
+      <fault message="tns:authenticationFaultMsg" name="authenticationFault">
+    </fault>
+      <fault message="tns:systemFaultMsg" name="systemFault">
+    </fault>
+      <fault message="tns:dataFaultMsg" name="dataFault">
+    </fault>
+    </operation>
+  </portType>
+  <binding name="ParcelShopFinderService_5_0_SOAP" type="tns:ParcelShopFinderService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="findParcelShops">
+      <soap:operation soapAction="http://dpd.com/common/service/ParcelShopFinderService/5.0/findParcelShops"/>
+      <input>
+        <soap:header message="tns:findParcelShopsRequestHeader" part="authentication" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="authenticationFault">
+        <soap:fault name="authenticationFault" use="literal"/>
+      </fault>
+      <fault name="systemFault">
+        <soap:fault name="systemFault" use="literal"/>
+      </fault>
+      <fault name="dataFault">
+        <soap:fault name="dataFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="findParcelShopsByGeoData">
+      <soap:operation soapAction="http://dpd.com/common/service/ParcelShopFinderService/5.0/findParcelShopsByGeoData"/>
+      <input>
+        <soap:header message="tns:findParcelShopsByGeoDataRequestHeader" part="authentication" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="authenticationFault">
+        <soap:fault name="authenticationFault" use="literal"/>
+      </fault>
+      <fault name="systemFault">
+        <soap:fault name="systemFault" use="literal"/>
+      </fault>
+      <fault name="dataFault">
+        <soap:fault name="dataFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="findCities">
+      <soap:operation soapAction="http://dpd.com/common/service/ParcelShopFinderService/5.0/findCities"/>
+      <input>
+        <soap:header message="tns:findCitiesRequestHeader" part="authentication" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="authenticationFault">
+        <soap:fault name="authenticationFault" use="literal"/>
+      </fault>
+      <fault name="systemFault">
+        <soap:fault name="systemFault" use="literal"/>
+      </fault>
+      <fault name="dataFault">
+        <soap:fault name="dataFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="getAvailableServices">
+      <soap:operation soapAction="http://dpd.com/common/service/ParcelShopFinderService/5.0/getAvailableServices"/>
+      <input>
+        <soap:header message="tns:getAvailableServicesRequestHeader" part="authentication" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="authenticationFault">
+        <soap:fault name="authenticationFault" use="literal"/>
+      </fault>
+      <fault name="systemFault">
+        <soap:fault name="systemFault" use="literal"/>
+      </fault>
+      <fault name="dataFault">
+        <soap:fault name="dataFault" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <service name="ParcelShopFinderService-Public_5_0">
+<wsdl:documentation>
+			<version>5.0</version>
+		</wsdl:documentation>
+    <port binding="tns:ParcelShopFinderService_5_0_SOAP" name="ParcelShopFinderService_5_0_SOAP">
+      <soap:address location="https://public-ws-stage.dpd.com/services/ParcelShopFinderService/V5_0/"/>
+    </port>
+  </service>
+    <jaxws:bindings>
+      <jaxws:package name="com.dpd.common.ws.parcelshopfinderservice.v5_0"/>
+   </jaxws:bindings>
+</definitions>

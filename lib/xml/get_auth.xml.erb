@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://dpd.com/common/service/types/LoginService/2.0">
+  <soapenv:Header/>
+  <soapenv:Body>
+    <ns:getAuth>
+      <delisId><%= username %></delisId>
+      <password><%= password %></password>
+      <messageLanguage>en_EN</messageLanguage>
+    </ns:getAuth>
+  </soapenv:Body>
+</soapenv:Envelope>

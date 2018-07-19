@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://dpd.com/common/service/types/Authentication/2.0" xmlns:ns1="http://dpd.com/common/service/types/ShipmentService/3.2">
+  <soapenv:Header>
+    <ns:authentication>
+      <delisId><%= username %></delisId>
+      <authToken><%= token %></authToken>
+      <messageLanguage><%= locale || "en_EN" %></messageLanguage>
+    </ns:authentication>
+  </soapenv:Header>
+  <soapenv:Body>
+    <ns1:storeOrders>
+      <printOptions>
+        <printerLanguage><%= file_format || "PDF" %></printerLanguage>
+        <paperFormat><%= paper_format || "A4" %></paperFormat>
+      </printOptions>
+      <order>
+        <generalShipmentData>
+          <identificationNumber><%= sequence_number %></identificationNumber>
+          <sendingDepot><%= depot %></sendingDepot>
+          <product><%= product || "CL" %></product>
+          <mpsCompleteDelivery>0</mpsCompleteDelivery>
+          <sender>
+            <name1><%= shipper_address[:name1] %></name1>
+            <street><%= shipper_address[:line1] %></street>
+            <country><%= shipper_address[:country] %></country>
+            <zipCode><%= shipper_address[:zip_code] %></zipCode>
+            <city><%= shipper_address[:city] %></city>
+            <customerNumber><%= customer_number %></customerNumber>
+          </sender>
+          <recipient>
+            <name1><%= recipient_address[:name1] %></name1>
+            <street><%= recipient_address[:street_name] %></street>
+            <state><%= recipient_address[:state] %></state>
+            <country><%= recipient_address[:country] %></country>
+            <zipCode><%= recipient_address[:zip_code] %></zipCode>
+            <city><%= recipient_address[:city] %></city>
+          </recipient>
+        </generalShipmentData>
+        <productAndServiceData>
+          <orderType><%= order_type || "consignment" %></orderType>
+        </productAndServiceData>
+      </order>
+    </ns1:storeOrders>
+  </soapenv:Body>
+</soapenv:Envelope>

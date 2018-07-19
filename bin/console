@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "dotenv"
+Dotenv.load
+require "dpd_api"
+
+DPDApi::Client.configure do |config|
+  config.username = ENV['DPD_USERNAME']
+  config.password = ENV['DPD_PASSWORD']
+  config.sandbox = ENV['DPD_SANDBOX'].nil? ? true : ENV['DPD_SANDBOX'] == "true"
+  config.logger = Logger.new(STDOUT)
+  config.logger.level = if ENV['LOGGER_LEVEL'].nil?
+    0
+  else
+    ENV['LOGGER_LEVEL'].to_i
+  end
+end
+
+# You can add fixtures and/or initialization code here to make experimenting
+# with your gem easier. You can also use a different console, if you like.
+
+# (If you use this, don't forget to add pry to your Gemfile!)
+# require "pry"
+# Pry.start
+
+require "irb"
+IRB.start(__FILE__)
