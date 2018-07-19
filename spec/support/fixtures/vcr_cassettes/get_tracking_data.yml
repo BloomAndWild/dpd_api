@@ -1,0 +1,72 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://public-ws-stage.dpd.com/services/ParcelLifeCycleService/V2_0/
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+        <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://dpd.com/common/service/types/Authentication/2.0" xmlns:ns1="http://dpd.com/common/service/types/ParcelLifeCycleService/2.0">
+          <soapenv:Header>
+            <ns:authentication>
+              <delisId><USERNAME></delisId>
+              <authToken>LTgwMTUyMjgwNzI4NzY0ODMwOTERMTUzMTk3OTQ0MTA0NwRR</authToken>
+              <messageLanguage>en_EN</messageLanguage>
+            </ns:authentication>
+          </soapenv:Header>
+          <soapenv:Body>
+            <ns1:getTrackingData>
+              <parcelLabelNumber>09981122330100</parcelLabelNumber>
+            </ns1:getTrackingData>
+          </soapenv:Body>
+        </soapenv:Envelope>
+    headers:
+      User-Agent:
+      - HTTPClient/1.0 (2.8.3, ruby 2.5.1 (2018-03-29))
+      Accept:
+      - "*/*"
+      Date:
+      - Thu, 19 Jul 2018 16:39:41 GMT
+      Soapaction:
+      - '"http://dpd.com/common/service/ParcelLifeCycleService/2.0/getTrackingData"'
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '690'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 19 Jul 2018 16:39:41 GMT
+      Server:
+      - Jetty(6.1.x)
+      Content-Type:
+      - text/xml; charset=utf-8
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><ns2:getTrackingDataResponse
+        xmlns:ns2="http://dpd.com/common/service/types/ParcelLifeCycleService/2.0"><trackingresult><shipmentInfo><status>SHIPMENT</status><label><content>Shipment
+        information</content><bold>true</bold><paragraph>false</paragraph></label><description><content><content>Details
+        of your shipment</content><bold>false</bold><paragraph>false</paragraph></content><linkTarget/></description><statusHasBeenReached>false</statusHasBeenReached><isCurrentStatus>false</isCurrentStatus><showContactInfo>false</showContactInfo><serviceDescription><label><content>Your
+        DPD service: </content><bold>false</bold><paragraph>false</paragraph></label><content><content>DPD
+        CLASSIC C.O.D.</content><bold>false</bold><paragraph>false</paragraph></content><linkTarget/></serviceDescription></shipmentInfo><statusInfo><status>ACCEPTED</status><label><content>Parcel
+        handed to DPD</content><bold>true</bold><paragraph>false</paragraph></label><description><content><content>DPD
+        has received your parcel.</content><bold>false</bold><paragraph>false</paragraph></content><linkTarget/></description><statusHasBeenReached>false</statusHasBeenReached><isCurrentStatus>true</isCurrentStatus><showContactInfo>false</showContactInfo></statusInfo><statusInfo><status>AT_SENDING_DEPOT</status><label><content>In
+        transit</content><bold>true</bold><paragraph>false</paragraph></label><description><content><content>The
+        parcel is at the parcel dispatch centre.</content><bold>false</bold><paragraph>false</paragraph></content><linkTarget/></description><statusHasBeenReached>false</statusHasBeenReached><isCurrentStatus>false</isCurrentStatus><showContactInfo>false</showContactInfo></statusInfo><statusInfo><status>ON_THE_ROAD</status><label><content>At
+        parcel delivery centre</content><bold>true</bold><paragraph>false</paragraph></label><description><content><content>Your
+        parcel is on its way to the parcel delivery centre.</content><bold>false</bold><paragraph>false</paragraph></content><linkTarget/></description><statusHasBeenReached>false</statusHasBeenReached><isCurrentStatus>false</isCurrentStatus><showContactInfo>false</showContactInfo></statusInfo><statusInfo><status>AT_DELIVERY_DEPOT</status><label><content>Parcel
+        out for delivery</content><bold>true</bold><paragraph>false</paragraph></label><description><content><content>At
+        parcel delivery centre.</content><bold>false</bold><paragraph>false</paragraph></content><linkTarget/></description><statusHasBeenReached>false</statusHasBeenReached><isCurrentStatus>false</isCurrentStatus><showContactInfo>false</showContactInfo></statusInfo><statusInfo><status>DELIVERED</status><label><content>Parcel
+        delivered</content><bold>true</bold><paragraph>false</paragraph></label><description><content><content>Your
+        parcel has been delivered successfully.</content><bold>false</bold><paragraph>false</paragraph></content><linkTarget/></description><statusHasBeenReached>false</statusHasBeenReached><isCurrentStatus>false</isCurrentStatus><showContactInfo>false</showContactInfo></statusInfo></trackingresult></ns2:getTrackingDataResponse></soap:Body></soap:Envelope>'
+    http_version: 
+  recorded_at: Thu, 19 Jul 2018 16:39:41 GMT
+recorded_with: VCR 4.0.0

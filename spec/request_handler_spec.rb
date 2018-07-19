@@ -17,7 +17,7 @@ describe DPDApi::RequestHandler do
   end
 
   context "store_orders" do
-    fit "creates an order" do
+    it "creates an order" do
       VCR.use_cassette('store_orders') do
         response = described_class.request(
           :store_orders,
@@ -46,6 +46,20 @@ describe DPDApi::RequestHandler do
           mps_id: "MPS0998505261282720180719",
           parcel_information: { parcel_label_number: "09985052612827" }
         )
+      end
+    end
+  end
+
+  context "get_tracking_data" do
+    it "fetches tracking data" do
+      VCR.use_cassette('get_tracking_data') do
+        response = described_class.request(
+          :get_tracking_data,
+          token: "LTgwMTUyMjgwNzI4NzY0ODMwOTERMTUzMTk3OTQ0MTA0NwRR",
+          tracking_number: "09981122330100",
+        )
+        expect(response.shipment_info[:status]).to eq("SHIPMENT")
+        expect(response.status_info.last[:status]).to eq("DELIVERED")
       end
     end
   end

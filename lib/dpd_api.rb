@@ -11,6 +11,7 @@ require_relative "dpd_api/xml_formatter"
 require_relative "dpd_api/dpd_error"
 require_relative "dpd_api/responses/store_orders"
 require_relative "dpd_api/responses/get_auth"
+require_relative "dpd_api/responses/get_tracking_data"
 
 module DPDApi
   def self.root_path

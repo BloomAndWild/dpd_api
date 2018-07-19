@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://dpd.com/common/service/types/Authentication/2.0" xmlns:ns1="http://dpd.com/common/service/types/ParcelLifeCycleService/2.0">
+  <soapenv:Header>
+    <ns:authentication>
+      <delisId><%= username %></delisId>
+      <authToken><%= token %></authToken>
+      <messageLanguage><%= locale || "en_EN" %></messageLanguage>
+    </ns:authentication>
+  </soapenv:Header>
+  <soapenv:Body>
+    <ns1:getTrackingData>
+      <parcelLabelNumber><%= tracking_number %></parcelLabelNumber>
+    </ns1:getTrackingData>
+  </soapenv:Body>
+</soapenv:Envelope>

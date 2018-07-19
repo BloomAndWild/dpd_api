@@ -8,11 +8,11 @@ module DPDApi
       end
 
       def pdf
-        @body.fetch(:parcellabels_pdf)
+        body.fetch(:parcellabels_pdf)
       end
 
       def shipment_responses
-        @body.fetch(:shipment_responses)
+        body.fetch(:shipment_responses)
       end
 
       def tracking_number

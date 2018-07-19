@@ -41,7 +41,7 @@ module DPDApi
 
     def get_response
       xml = xml_builder(attrs.merge(security_attrs)).build
-      client.call(request_endpoint, xml: xml)
+      client.call(request_name, xml: xml)
     end
 
     def parse_response raw_response
@@ -51,23 +51,14 @@ module DPDApi
           DPDApi::Responses::GetAuth.new(raw_response)
         when :store_orders
           DPDApi::Responses::StoreOrders.new(raw_response)
+        when :get_tracking_data
+          DPDApi::Responses::GetTrackingData.new(raw_response)
         end
       rescue => ex
         raise DPDApi::DPDError.new(ex.message, body: raw_response.body)
       end
 
       response
-    end
-
-    def request_endpoint
-      case request_name
-      when :get_auth
-        :get_auth
-      when :store_orders
-        :store_orders
-      else
-        request_name
-      end
     end
 
     def security_attrs

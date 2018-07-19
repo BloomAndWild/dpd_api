@@ -8,7 +8,7 @@ module DPDApi
       end
 
       def token
-        @body.fetch(:auth_token)
+        body.fetch(:auth_token)
       end
     end
   end

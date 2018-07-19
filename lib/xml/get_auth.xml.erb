@@ -5,7 +5,7 @@
     <ns:getAuth>
       <delisId><%= username %></delisId>
       <password><%= password %></password>
-      <messageLanguage>en_EN</messageLanguage>
+      <messageLanguage><%= locale || "en_EN" %></messageLanguage>
     </ns:getAuth>
   </soapenv:Body>
 </soapenv:Envelope>
