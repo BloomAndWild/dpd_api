@@ -1,6 +1,20 @@
 require "spec_helper"
 
 describe DPDApi::RequestHandler do
+  before do
+    DPDApi::Client.configure do |config|
+      config.username = ENV['DPD_USERNAME']
+      config.password = ENV['DPD_PASSWORD']
+      config.sandbox = true
+      config.logger = Logger.new(STDOUT)
+      config.logger.level = if ENV['LOGGER_LEVEL'].nil?
+        1
+      else
+        ENV['LOGGER_LEVEL'].to_i
+      end
+    end
+  end
+
   context "get_auth" do
     it "fetches auth token" do
       VCR.use_cassette('get_auth') do
@@ -18,6 +32,7 @@ describe DPDApi::RequestHandler do
     it "returns an error" do
       VCR.use_cassette('get_auth_error') do
         DPDApi::Client.configure do |config|
+          config.username = "sandboxdpd"
           config.password = "wrongpassword"
         end
 

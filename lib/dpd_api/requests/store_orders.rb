@@ -7,6 +7,7 @@ module DPDApi
         @attrs = attrs
       end
 
+      # TODO: Error messages
       def xml_attributes
         attrs.fetch(:username)
         attrs.fetch(:token)
@@ -27,21 +28,21 @@ module DPDApi
         attrs[:shipper_address].fetch(:zip_code)
         attrs[:shipper_address].fetch(:city)
         attrs[:shipper_address].fetch(:country)
-        attrs[:shipper_address][:phone]
-        attrs[:shipper_address][:email]
+        attrs[:shipper_address][:phone] # Optional
+        attrs[:shipper_address][:email] # Optional
         attrs.fetch(:customer_number)
 
         attrs.fetch(:recipient_address)
         attrs[:recipient_address].fetch(:name1)
-        attrs[:recipient_address][:name2]
+        attrs[:recipient_address][:name2] # Optional
         attrs[:recipient_address].fetch(:street_name)
         attrs[:recipient_address].fetch(:street_number)
         attrs[:recipient_address].fetch(:zip_code)
         attrs[:recipient_address].fetch(:city)
         attrs[:recipient_address].fetch(:country)
-        attrs[:recipient_address][:phone]
-        attrs[:recipient_address][:email]
-        attrs[:recipient_address][:comment]
+        attrs[:recipient_address][:phone] # Optional
+        attrs[:recipient_address][:email] # Optional
+        attrs[:recipient_address][:comment] # Optional
 
         # Possible values:
         # consignment

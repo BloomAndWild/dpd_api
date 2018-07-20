@@ -8,18 +8,6 @@ require "dpd_api"
 
 Dotenv.load
 
-DPDApi::Client.configure do |config|
-  config.username = ENV['DPD_USERNAME']
-  config.password = ENV['DPD_PASSWORD']
-  config.sandbox = true
-  config.logger = Logger.new(STDOUT)
-  config.logger.level = if ENV['LOGGER_LEVEL'].nil?
-    1
-  else
-    ENV['LOGGER_LEVEL'].to_i
-  end
-end
-
 VCR.configure do |c|
   c.hook_into :webmock
   c.configure_rspec_metadata!
