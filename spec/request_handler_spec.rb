@@ -33,30 +33,32 @@ describe DPDApi::RequestHandler do
       VCR.use_cassette('store_orders') do
         response = described_class.request(
           :store_orders,
-          token: "LTgwMTUyMjgwNzI4NzY0ODMwOTERMTUzMTk3OTQ0MTA0NwRR",
+          token: "LTQ1MzQ2OTMyNjg3NDgwNjU5ODURMTUzMjA1NDUxOTM2MgRR",
           depot: "0998",
           sequence_number: 1,
           customer_number: 1,
+          delivery_on: Date.parse("2018-07-25"),
           shipper_address: {
             name1: "Hans",
-            line1: "Burgerstr. 123",
+            street_name: "Burgerstr.",
+            street_number: "123",
             country: "DE",
-            zip_code: "12312",
+            zip_code: "10115",
             city: "Hamburger",
           },
           recipient_address: {
             name1: "Helga",
-            street_name: "Currywurstr. 123",
-            state: "BY",
+            street_name: "Currywurstr.",
+            street_number: "123",
             country: "DE",
-            zip_code: "12312",
+            zip_code: "10115",
             city: "Currywurst",
           }
         )
         expect(response.shipment_responses).to eq(
           identification_number: "1",
-          mps_id: "MPS0998505261282720180719",
-          parcel_information: { parcel_label_number: "09985052612827" }
+          mps_id: "MPS0998505261303620180720",
+          parcel_information: { parcel_label_number: "09985052613036" }
         )
       end
     end
@@ -67,7 +69,7 @@ describe DPDApi::RequestHandler do
       VCR.use_cassette('get_tracking_data') do
         response = described_class.request(
           :get_tracking_data,
-          token: "LTgwMTUyMjgwNzI4NzY0ODMwOTERMTUzMTk3OTQ0MTA0NwRR",
+          token: "LTQ1MzQ2OTMyNjg3NDgwNjU5ODURMTUzMjA1NDUxOTM2MgRR",
           tracking_number: "09981122330100",
         )
         expect(response.shipment_info[:status]).to eq("SHIPMENT")
@@ -91,7 +93,7 @@ describe DPDApi::RequestHandler do
       VCR.use_cassette('get_tracking_data_wrong_number') do
         response = described_class.request(
           :get_tracking_data,
-          token: "LTgwMTUyMjgwNzI4NzY0ODMwOTERMTUzMTk3OTQ0MTA0NwRR",
+          token: "LTQ1MzQ2OTMyNjg3NDgwNjU5ODURMTUzMjA1NDUxOTM2MgRR",
           tracking_number: "00000000000000",
         )
         expect(response.shipment_info).to eq({})

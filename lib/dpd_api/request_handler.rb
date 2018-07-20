@@ -2,7 +2,7 @@ module DPDApi
   class RequestHandler
     class << self
       def request(request_name, attrs = {})
-        new(request_name, attrs).request
+        new(request_name, attrs).run
       end
     end
 
@@ -11,13 +11,8 @@ module DPDApi
       @attrs = attrs
     end
 
-    def request
-      raw_response = get_response
-      parse_response(raw_response)
-    end
-
-    def xml_builder attrs = {}
-      @xml_builder ||= DPDApi::XMLBuilder.new(request_name, attrs)
+    def run
+      parse_response(get_response)
     end
 
     def client
@@ -41,8 +36,21 @@ module DPDApi
     attr_accessor :request_name, :attrs
 
     def get_response
-      xml = xml_builder(attrs.merge(security_attrs)).build
+      xml = xml_builder(request.xml_attributes).build
       client.call(request_name, xml: xml)
+    end
+
+    def request
+      case request_name
+      when :store_orders
+        DPDApi::Requests::StoreOrders.new(attrs.merge(security_attrs))
+      else
+        DPDApi::Requests::BaseRequest.new(attrs.merge(security_attrs))
+      end
+    end
+
+    def xml_builder attrs = {}
+      DPDApi::XMLBuilder.new(request_name, attrs)
     end
 
     def parse_response raw_response
@@ -51,6 +59,12 @@ module DPDApi
         raise DPDApi::DPDError.new(fault.message, status_code: fault.code, body: fault.body)
       end
 
+      response(raw_response)
+    rescue => ex
+      raise DPDApi::DPDError.new(ex.message, body: raw_response.body)
+    end
+
+    def response raw_response
       case request_name
       when :get_auth
         DPDApi::Responses::GetAuth.new(raw_response)
@@ -59,8 +73,6 @@ module DPDApi
       when :get_tracking_data
         DPDApi::Responses::GetTrackingData.new(raw_response)
       end
-    rescue => ex
-      raise DPDApi::DPDError.new(ex.message, body: raw_response.body)
     end
 
     def security_attrs

@@ -4,40 +4,60 @@
     <ns:authentication>
       <delisId><%= username %></delisId>
       <authToken><%= token %></authToken>
-      <messageLanguage><%= locale || "en_EN" %></messageLanguage>
+      <messageLanguage><%= locale %></messageLanguage>
     </ns:authentication>
   </soapenv:Header>
   <soapenv:Body>
     <ns1:storeOrders>
       <printOptions>
-        <printerLanguage><%= file_format || "PDF" %></printerLanguage>
-        <paperFormat><%= paper_format || "A4" %></paperFormat>
+        <printerLanguage><%= file_format %></printerLanguage>
+        <paperFormat><%= paper_format %></paperFormat>
       </printOptions>
       <order>
         <generalShipmentData>
           <identificationNumber><%= sequence_number %></identificationNumber>
           <sendingDepot><%= depot %></sendingDepot>
-          <product><%= product || "CL" %></product>
-          <mpsCompleteDelivery>0</mpsCompleteDelivery>
+          <product><%= product %></product>
+          <mpsCompleteDelivery><%= complete_delivery %></mpsCompleteDelivery>
+          <mpsWeight><%= weight %></mpsWeight>
           <sender>
             <name1><%= shipper_address[:name1] %></name1>
-            <street><%= shipper_address[:line1] %></street>
+            <street><%= shipper_address[:street_name] %></street>
+            <houseNo><%= shipper_address[:street_number] %></houseNo>
             <country><%= shipper_address[:country] %></country>
             <zipCode><%= shipper_address[:zip_code] %></zipCode>
             <city><%= shipper_address[:city] %></city>
             <customerNumber><%= customer_number %></customerNumber>
+            <phone><%= shipper_address[:phone] %></phone>
+            <email><%= shipper_address[:email] %></email>
           </sender>
           <recipient>
             <name1><%= recipient_address[:name1] %></name1>
+            <name2><%= recipient_address[:name2] %></name2>
             <street><%= recipient_address[:street_name] %></street>
-            <state><%= recipient_address[:state] %></state>
+            <houseNo><%= recipient_address[:street_number] %></houseNo>
             <country><%= recipient_address[:country] %></country>
             <zipCode><%= recipient_address[:zip_code] %></zipCode>
             <city><%= recipient_address[:city] %></city>
+            <phone><%= recipient_address[:phone] %></phone>
+            <email><%= recipient_address[:email] %></email>
+            <comment><%= recipient_address[:comment] %></comment>
           </recipient>
         </generalShipmentData>
         <productAndServiceData>
-          <orderType><%= order_type || "consignment" %></orderType>
+          <orderType><%= order_type %></orderType>
+          <saturdayDelivery><%= saturday_delivery %></saturdayDelivery>
+          <!--
+          <proactiveNotification>
+            <channel><%= notification_channel %></channel>
+            <value><%= notification_value %></value>
+            <rule><%= notification_rule %></rule>
+            <language><%= notification_locale %></language>
+          </proactiveNotification>
+          -->
+          <delivery>
+            <dateFrom><%= date_from %></dateFrom>
+          </delivery>
         </productAndServiceData>
       </order>
     </ns1:storeOrders>

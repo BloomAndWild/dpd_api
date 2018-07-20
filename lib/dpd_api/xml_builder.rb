@@ -14,7 +14,7 @@ module DPDApi
     end
 
     def build
-      body
+      build_xml("#{request}.xml.erb")
     end
 
     private
@@ -27,10 +27,6 @@ module DPDApi
     def build_xml(file)
       path = File.join(xml_path << file)
       ERB.new(File.read(path)).result(binding)
-    end
-
-    def body
-      build_xml("#{request}.xml.erb")
     end
   end
 end
