@@ -12,7 +12,12 @@ module DPDApi
     end
 
     def run
-      parse_response(get_response)
+      response = parse_response(get_response)
+      if response.success?
+        response
+      else
+        raise response.error
+      end
     end
 
     def client
@@ -54,11 +59,6 @@ module DPDApi
     end
 
     def parse_response raw_response
-      if raw_response.body.key?(:fault)
-        fault = DPDApi::Responses::Fault.new(raw_response)
-        raise DPDApi::DPDError.new(fault.message, status_code: fault.code, body: fault.body)
-      end
-
       response(raw_response)
     rescue => ex
       raise DPDApi::DPDError.new(ex.message, body: raw_response.body)

@@ -1,15 +1,9 @@
 module DPDApi
   module Responses
-    class Fault
-      attr_accessor :body
-
-      def initialize(response)
-        @body = response.body.fetch(:fault)
-      end
-
+    class Fault < BaseResponse
       def code
         if detail.nil?
-          body.fetch(:faultcode)
+          result.fetch(:faultcode)
         else
           "#{key} - " + detail.dig(key, :error_code)
         end
@@ -17,7 +11,7 @@ module DPDApi
 
       def message
         if detail.nil?
-          body.fetch(:faultstring)
+          result.fetch(:faultstring)
         else
           detail.dig(key, :error_message)
         end
@@ -30,7 +24,11 @@ module DPDApi
       end
 
       def detail
-        body[:detail]
+        result[:detail]
+      end
+
+      def result
+        body.fetch(:fault)
       end
     end
   end

@@ -1,14 +1,8 @@
 module DPDApi
   module Responses
-    class GetAuth
-      attr_accessor :body
-
-      def initialize(response)
-        @body = response.body.dig(:get_auth_response, :return)
-      end
-
+    class GetAuth < BaseResponse
       def token
-        body.fetch(:auth_token)
+        body.fetch(:get_auth_response).fetch(:return).fetch(:auth_token)
       end
     end
   end

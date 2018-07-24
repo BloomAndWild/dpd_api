@@ -18,7 +18,7 @@ module DPDApi
         attrs[:sequence_number] ||= "1"
         attrs.fetch(:depot)
         attrs[:product] ||= "CL"
-        attrs[:weight] ||= 10 # 10 = 1kg
+        attrs[:weight] = (attrs[:weight] || 100).to_i # weight in dag (100dag = 1kg)
         attrs[:complete_delivery] ||= 0
 
         attrs.fetch(:shipper_address)

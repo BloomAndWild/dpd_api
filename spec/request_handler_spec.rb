@@ -20,12 +20,7 @@ describe DPDApi::RequestHandler do
       VCR.use_cassette('get_auth') do
         response = described_class.request(:get_auth)
 
-        expect(response.body).to eq(
-          delis_id: ENV["DPD_USERNAME"],
-          customer_uid: ENV["DPD_USERNAME"],
-          auth_token: "LTgwMTUyMjgwNzI4NzY0ODMwOTERMTUzMTk3OTQ0MTA0NwRR",
-          depot: "0998",
-        )
+        expect(response.token).to eq("LTgwMTUyMjgwNzI4NzY0ODMwOTERMTUzMTk3OTQ0MTA0NwRR")
       end
     end
 
