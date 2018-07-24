@@ -1,8 +1,6 @@
 # DPDApi
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/dpd_api`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+[![Build Status](https://travis-ci.org/BloomAndWild/dpd_api.svg?branch=master)](https://travis-ci.org/BloomAndWild/dpd_api)
 
 ## Installation
 
@@ -18,11 +16,63 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install dpd_api
+    $ gem install dpd
 
 ## Usage
 
-TODO: Write usage instructions here
+### Initializer:
+```ruby
+DPDApi::Client.configure do |config|
+  config.username = ""
+  config.password = ""
+  config.sandbox = true
+  # config.logger = Rails.logger
+end
+```
+
+### Auth:
+```ruby
+token = DPDApi::RequestHandler.request(:get_auth).token
+```
+
+### New order:
+```ruby
+attrs = {
+  product: "CL",
+  delivery_on: Date.parse("2018-06-06"),
+  token: token,
+  depot: "0160",
+  customer_number: "1",
+  weight: "100", # parcel weight in dag
+  shipper_address: {
+    name1: "",
+    street_name: "",
+    street_number: "",
+    country: "DE",
+    zip_code: "",
+    city: "",
+  },
+  recipient_address: {
+    name1: "",
+    name2: "",
+    street_name: "",
+    street_number: "",
+    country: "",
+    zip_code: "",
+    city: "",
+    comment: "",
+    phone: "",
+    email: "",
+  }
+}
+
+DPDApi::RequestHandler.request(:store_orders, attrs)
+```
+
+### Tracking:
+```ruby
+DPDApi::RequestHandler.request(:get_tracking_data, tracking_number: "123456789")
+```
 
 ## Development
 
