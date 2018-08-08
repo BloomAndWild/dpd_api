@@ -11,7 +11,7 @@ http_interactions:
           <soapenv:Header>
             <ns:authentication>
               <delisId><USERNAME></delisId>
-              <authToken>LTgwMTUyMjgwNzI4NzY0ODMwOTERMTUzMTk3OTQ0MTA0NwRR</authToken>
+              <authToken>LTE3OTYwNjU1ODk5MTEzMjQ0MjERMTUzMjY3MTExMTgzNARR</authToken>
               <messageLanguage>en_EN</messageLanguage>
             </ns:authentication>
           </soapenv:Header>
@@ -27,7 +27,7 @@ http_interactions:
       Accept:
       - "*/*"
       Date:
-      - Thu, 19 Jul 2018 17:17:45 GMT
+      - Wed, 08 Aug 2018 12:03:26 GMT
       Soapaction:
       - '"http://dpd.com/common/service/ParcelLifeCycleService/2.0/getTrackingData"'
       Content-Type:
@@ -40,7 +40,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 19 Jul 2018 17:17:45 GMT
+      - Wed, 08 Aug 2018 12:03:26 GMT
       Server:
       - Jetty(6.1.x)
       Content-Type:
@@ -54,5 +54,5 @@ http_interactions:
       string: <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><ns2:getTrackingDataResponse
         xmlns:ns2="http://dpd.com/common/service/types/ParcelLifeCycleService/2.0"><trackingresult/></ns2:getTrackingDataResponse></soap:Body></soap:Envelope>
     http_version: 
-  recorded_at: Thu, 19 Jul 2018 17:17:45 GMT
+  recorded_at: Wed, 08 Aug 2018 12:03:26 GMT
 recorded_with: VCR 4.0.0

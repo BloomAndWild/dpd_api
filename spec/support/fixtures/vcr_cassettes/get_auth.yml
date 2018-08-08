@@ -6,7 +6,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
         <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://dpd.com/common/service/types/LoginService/2.0">
           <soapenv:Header/>
           <soapenv:Body>
@@ -23,20 +23,20 @@ http_interactions:
       Accept:
       - "*/*"
       Date:
-      - Thu, 19 Jul 2018 15:32:43 GMT
+      - Wed, 08 Aug 2018 12:02:54 GMT
       Soapaction:
       - '"http://dpd.com/common/service/LoginService/2.0/getAuth"'
       Content-Type:
       - text/xml;charset=UTF-8
       Content-Length:
-      - '429'
+      - '424'
   response:
     status:
       code: 200
       message: OK
     headers:
       Date:
-      - Thu, 19 Jul 2018 15:32:43 GMT
+      - Wed, 08 Aug 2018 12:02:54 GMT
       Server:
       - Jetty(6.1.x)
       Content-Type:
@@ -48,7 +48,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><ns2:getAuthResponse
-        xmlns:ns2="http://dpd.com/common/service/types/LoginService/2.0" xmlns:ns3="http://dpd.com/common/service/exceptions"><return><delisId><USERNAME></delisId><customerUid><USERNAME></customerUid><authToken>LTgwMTUyMjgwNzI4NzY0ODMwOTERMTUzMTk3OTQ0MTA0NwRR</authToken><depot>0998</depot></return></ns2:getAuthResponse></soap:Body></soap:Envelope>
+        xmlns:ns2="http://dpd.com/common/service/types/LoginService/2.0" xmlns:ns3="http://dpd.com/common/service/exceptions"><return><delisId><USERNAME></delisId><customerUid><USERNAME></customerUid><authToken>LTE3OTYwNjU1ODk5MTEzMjQ0MjERMTUzMjY3MTExMTgzNARR</authToken><depot>0998</depot></return></ns2:getAuthResponse></soap:Body></soap:Envelope>
     http_version: 
-  recorded_at: Thu, 19 Jul 2018 15:32:43 GMT
-recorded_with: VCR 3.0.3
+  recorded_at: Wed, 08 Aug 2018 12:02:54 GMT
+recorded_with: VCR 4.0.0

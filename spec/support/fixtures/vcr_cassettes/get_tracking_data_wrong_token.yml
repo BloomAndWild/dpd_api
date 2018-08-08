@@ -27,7 +27,7 @@ http_interactions:
       Accept:
       - "*/*"
       Date:
-      - Thu, 19 Jul 2018 17:18:55 GMT
+      - Wed, 08 Aug 2018 12:03:26 GMT
       Soapaction:
       - '"http://dpd.com/common/service/ParcelLifeCycleService/2.0/getTrackingData"'
       Content-Type:
@@ -40,7 +40,7 @@ http_interactions:
       message: Internal Server Error
     headers:
       Date:
-      - Thu, 19 Jul 2018 17:18:55 GMT
+      - Wed, 08 Aug 2018 12:03:26 GMT
       Server:
       - Jetty(6.1.x)
       Content-Type:
@@ -60,5 +60,5 @@ http_interactions:
         </ns:authenticationFault>
         </detail></soap:Fault></soap:Body></soap:Envelope>
     http_version: 
-  recorded_at: Thu, 19 Jul 2018 17:18:56 GMT
+  recorded_at: Wed, 08 Aug 2018 12:03:26 GMT
 recorded_with: VCR 4.0.0

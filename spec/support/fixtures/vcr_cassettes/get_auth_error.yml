@@ -11,7 +11,7 @@ http_interactions:
           <soapenv:Header/>
           <soapenv:Body>
             <ns:getAuth>
-              <delisId></delisId>
+              <delisId><USERNAME></delisId>
               <password><PASSWORD></password>
               <messageLanguage>en_EN</messageLanguage>
             </ns:getAuth>
@@ -23,20 +23,20 @@ http_interactions:
       Accept:
       - "*/*"
       Date:
-      - Thu, 19 Jul 2018 17:10:40 GMT
+      - Wed, 08 Aug 2018 12:01:37 GMT
       Soapaction:
       - '"http://dpd.com/common/service/LoginService/2.0/getAuth"'
       Content-Type:
       - text/xml;charset=UTF-8
       Content-Length:
-      - '420'
+      - '430'
   response:
     status:
       code: 500
       message: Internal Server Error
     headers:
       Date:
-      - Thu, 19 Jul 2018 17:10:40 GMT
+      - Wed, 08 Aug 2018 12:01:37 GMT
       Server:
       - Jetty(6.1.x)
       Content-Type:
@@ -56,5 +56,5 @@ http_interactions:
         </ns:authenticationFault>
         </detail></soap:Fault></soap:Body></soap:Envelope>
     http_version: 
-  recorded_at: Thu, 19 Jul 2018 17:10:40 GMT
+  recorded_at: Wed, 08 Aug 2018 12:01:37 GMT
 recorded_with: VCR 4.0.0
