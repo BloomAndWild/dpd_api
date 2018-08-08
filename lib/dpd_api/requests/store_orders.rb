@@ -30,7 +30,7 @@ module DPDApi
         attrs[:shipper_address].fetch(:country)
         attrs[:shipper_address][:phone] # Optional
         attrs[:shipper_address][:email] # Optional
-        attrs.fetch(:customer_number)
+        attrs[:customer_number] ||= attrs.fetch(:username)
 
         attrs.fetch(:recipient_address)
         attrs[:recipient_address].fetch(:name1)
@@ -51,7 +51,6 @@ module DPDApi
         attrs[:order_type] ||= "consignment"
         attrs.fetch(:delivery_on)
         attrs[:saturday_delivery] ||= attrs[:delivery_on].saturday? ? 1 : 0
-        attrs[:date_from] ||= attrs[:delivery_on].strftime("%Y%m%d")
 
         # Channels:
         # 1 = email
@@ -61,14 +60,6 @@ module DPDApi
         # 7 = postcard
         attrs[:notification_channel] ||= 1
         attrs[:notification_value] ||= attrs[:shipper_address][:email]
-
-        # Bit flags:
-        # 1 = pick-up
-        # 2 = non-delivery
-        # 4 = delivery
-        # 8 = inbound
-        # 16 = out for delivery
-        attrs[:notification_rule] ||= 4
         attrs[:notification_locale] ||= "EN"
         attrs
       end

@@ -24,9 +24,9 @@ module DPDApi
         }
       else
         {
-          get_auth: "https://public-ws-stage.dpd.com/services/LoginService/V2_0/",
-          store_orders: "https://public-ws-stage.dpd.com/services/ShipmentService/V3_2/",
-          get_tracking_data: "https://public-ws-stage.dpd.com/services/ParcelLifeCycleService/V2_0/"
+          get_auth: "https://public-ws.dpd.com/services/LoginService/V2_0/",
+          store_orders: "https://public-ws.dpd.com/services/ShipmentService/V3_2/",
+          get_tracking_data: "https://public-ws.dpd.com/services/ParcelLifeCycleService/V2_0/"
         }
       end
     end

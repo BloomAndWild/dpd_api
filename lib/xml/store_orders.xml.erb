@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://dpd.com/common/service/types/Authentication/2.0" xmlns:ns1="http://dpd.com/common/service/types/ShipmentService/3.2">
   <soapenv:Header>
     <ns:authentication>
@@ -47,17 +47,11 @@
         <productAndServiceData>
           <orderType><%= order_type %></orderType>
           <saturdayDelivery><%= saturday_delivery %></saturdayDelivery>
-          <!--
-          <proactiveNotification>
+          <predict>
             <channel><%= notification_channel %></channel>
             <value><%= notification_value %></value>
-            <rule><%= notification_rule %></rule>
             <language><%= notification_locale %></language>
-          </proactiveNotification>
-          -->
-          <delivery>
-            <dateFrom><%= date_from %></dateFrom>
-          </delivery>
+          </predict>
         </productAndServiceData>
       </order>
     </ns1:storeOrders>

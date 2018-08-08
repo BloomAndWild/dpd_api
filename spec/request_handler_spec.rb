@@ -29,6 +29,7 @@ describe DPDApi::RequestHandler do
         DPDApi::Client.configure do |config|
           config.username = "sandboxdpd"
           config.password = "wrongpassword"
+          config.sandbox = true
         end
 
         expect {
