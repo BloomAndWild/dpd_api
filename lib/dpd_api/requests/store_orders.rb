@@ -30,7 +30,11 @@ module DPDApi
         attrs[:shipper_address].fetch(:country)
         attrs[:shipper_address][:phone] # Optional
         attrs[:shipper_address][:email] # Optional
-        attrs[:customer_number] ||= attrs.fetch(:username)
+        attrs[:customer_number] ||= if Client.config.sandbox
+          1
+        else
+          attrs.fetch(:username)
+        end
 
         attrs.fetch(:recipient_address)
         attrs[:recipient_address].fetch(:name1)
