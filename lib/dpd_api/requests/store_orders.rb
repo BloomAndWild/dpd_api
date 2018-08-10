@@ -53,8 +53,7 @@ module DPDApi
         # collection request order
         # pickup information
         attrs[:order_type] ||= "consignment"
-        attrs.fetch(:delivery_on)
-        attrs[:saturday_delivery] ||= attrs[:delivery_on].saturday? ? 1 : 0
+        attrs[:saturday_delivery] ||= 0
 
         # Channels:
         # 1 = email
