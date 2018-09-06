@@ -61,6 +61,7 @@ attrs = {
     zip_code: "",
     city: "",
     comment: "",
+    contact: "",
     phone: "",
     email: "",
   }
