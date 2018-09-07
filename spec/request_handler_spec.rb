@@ -19,7 +19,7 @@ describe DPDApi::RequestHandler do
     it "fetches auth token" do
       VCR.use_cassette('get_auth') do
         response = described_class.request(:get_auth)
-        expect(response.token).to eq("LTE3OTYwNjU1ODk5MTEzMjQ0MjERMTUzMjY3MTExMTgzNARR")
+        expect(response.token).to eq("LTI5MzMzODEyNzE4OTY4MzY1NTARMTUzMzc3OTUyMjU2MwRR")
       end
     end
 
@@ -41,9 +41,10 @@ describe DPDApi::RequestHandler do
   context "store_orders" do
     it "creates an order" do
       VCR.use_cassette('store_orders') do
+        response = described_class.request(:get_auth)
         response = described_class.request(
           :store_orders,
-          token: "LTE3OTYwNjU1ODk5MTEzMjQ0MjERMTUzMjY3MTExMTgzNARR",
+          token: response.token,
           depot: "0998",
           sequence_number: 1,
           delivery_on: Date.parse("2018-08-14"),
@@ -60,15 +61,18 @@ describe DPDApi::RequestHandler do
             name1: "Helga",
             street_name: "Currywurstr.",
             street_number: "123",
+            contact: "2nd Floor Room 123",
             country: "DE",
             zip_code: "10115",
             city: "Currywurst",
+            customer_reference: "Leave with receptionist",
+            customer_reference_2: "",
           }
         )
-        expect(response.shipment_responses).to eq(
+        expect(response.shipment_responses).to include(
           identification_number: "1",
-          mps_id: "B2C0998505261606020180808",
-          parcel_information: { parcel_label_number: "09985052616060" }
+          mps_id: a_kind_of(String),
+          parcel_information: { parcel_label_number: a_kind_of(String) }
         )
       end
     end
@@ -79,7 +83,7 @@ describe DPDApi::RequestHandler do
       VCR.use_cassette('get_tracking_data') do
         response = described_class.request(
           :get_tracking_data,
-          token: "LTE3OTYwNjU1ODk5MTEzMjQ0MjERMTUzMjY3MTExMTgzNARR",
+          token: "LTI5MzMzODEyNzE4OTY4MzY1NTARMTUzMzc3OTUyMjU2MwRR",
           tracking_number: "09981122330100",
         )
         expect(response.shipment_info[:status]).to eq("SHIPMENT")
@@ -103,7 +107,7 @@ describe DPDApi::RequestHandler do
       VCR.use_cassette('get_tracking_data_wrong_number') do
         response = described_class.request(
           :get_tracking_data,
-          token: "LTE3OTYwNjU1ODk5MTEzMjQ0MjERMTUzMjY3MTExMTgzNARR",
+          token: "LTI5MzMzODEyNzE4OTY4MzY1NTARMTUzMzc3OTUyMjU2MwRR",
           tracking_number: "00000000000000",
         )
         expect(response.shipment_info).to eq({})

@@ -15,6 +15,8 @@
       </printOptions>
       <order>
         <generalShipmentData>
+          <mpsCustomerReferenceNumber1><%= recipient_address[:customer_reference] %></mpsCustomerReferenceNumber1>
+          <mpsCustomerReferenceNumber2><%= recipient_address[:customer_reference_2] %></mpsCustomerReferenceNumber2>
           <identificationNumber><%= sequence_number %></identificationNumber>
           <sendingDepot><%= depot %></sendingDepot>
           <product><%= product %></product>

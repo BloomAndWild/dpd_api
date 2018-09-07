@@ -48,6 +48,8 @@ module DPDApi
         attrs[:recipient_address][:email] # Optional
         attrs[:recipient_address][:comment] # Optional
         attrs[:recipient_address][:contact] # Optional
+        attrs[:recipient_address][:customer_reference] # Optional
+        attrs[:recipient_address][:customer_reference_2] # Optional
 
         # Possible values:
         # consignment

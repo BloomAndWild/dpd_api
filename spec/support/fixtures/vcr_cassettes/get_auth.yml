@@ -23,7 +23,7 @@ http_interactions:
       Accept:
       - "*/*"
       Date:
-      - Wed, 08 Aug 2018 12:02:54 GMT
+      - Fri, 07 Sep 2018 08:36:26 GMT
       Soapaction:
       - '"http://dpd.com/common/service/LoginService/2.0/getAuth"'
       Content-Type:
@@ -36,7 +36,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 08 Aug 2018 12:02:54 GMT
+      - Fri, 07 Sep 2018 08:36:26 GMT
       Server:
       - Jetty(6.1.x)
       Content-Type:
@@ -48,7 +48,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><ns2:getAuthResponse
-        xmlns:ns2="http://dpd.com/common/service/types/LoginService/2.0" xmlns:ns3="http://dpd.com/common/service/exceptions"><return><delisId><USERNAME></delisId><customerUid><USERNAME></customerUid><authToken>LTE3OTYwNjU1ODk5MTEzMjQ0MjERMTUzMjY3MTExMTgzNARR</authToken><depot>0998</depot></return></ns2:getAuthResponse></soap:Body></soap:Envelope>
+        xmlns:ns2="http://dpd.com/common/service/types/LoginService/2.0" xmlns:ns3="http://dpd.com/common/service/exceptions"><return><delisId><USERNAME></delisId><customerUid><USERNAME></customerUid><authToken>LTI5MzMzODEyNzE4OTY4MzY1NTARMTUzMzc3OTUyMjU2MwRR</authToken><depot>0998</depot></return></ns2:getAuthResponse></soap:Body></soap:Envelope>
     http_version: 
-  recorded_at: Wed, 08 Aug 2018 12:02:54 GMT
+  recorded_at: Fri, 07 Sep 2018 08:36:26 GMT
 recorded_with: VCR 4.0.0
