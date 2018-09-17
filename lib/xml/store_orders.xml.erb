@@ -42,8 +42,12 @@
             <zipCode><%= recipient_address[:zip_code] %></zipCode>
             <city><%= recipient_address[:city] %></city>
             <contact><%= recipient_address[:contact] %></contact>
-            <phone><%= recipient_address[:phone] %></phone>
-            <email><%= recipient_address[:email] %></email>
+            <% if recipient_address[:phone] %>
+              <phone><%= recipient_address[:phone] %></phone>
+            <% end %>
+            <% if recipient_address[:email] %>
+              <email><%= recipient_address[:email] %></email>
+            <% end %>
             <comment><%= recipient_address[:comment] %></comment>
           </recipient>
         </generalShipmentData>
