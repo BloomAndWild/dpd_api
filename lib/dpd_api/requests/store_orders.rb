@@ -58,6 +58,10 @@ module DPDApi
         attrs[:order_type] ||= "consignment"
         attrs[:saturday_delivery] ||= 0
 
+        attrs[:add_service] ||= 3 # 3 = written permission to deposit goods by Sender
+        attrs[:message_number] ||= 14
+        attrs[:parcel_parameter] ||= attrs[:recipient_address][:comment]
+
         # Channels:
         # 1 = email
         # 2 = telephone

@@ -51,6 +51,12 @@
             <comment><%= recipient_address[:comment] %></comment>
           </recipient>
         </generalShipmentData>
+        <parcels>
+          <weight><%= weight %></weight>
+          <addService><%= add_service %></addService>
+          <messageNumber><%= message_number %></messageNumber>
+          <parameter><%= parcel_parameter %></parameter>
+        </parcels>
         <productAndServiceData>
           <orderType><%= order_type %></orderType>
           <saturdayDelivery><%= saturday_delivery %></saturdayDelivery>
