@@ -1,8 +1,8 @@
 module DPDApi
   class RequestHandler
     class << self
-      def request(request_name, attrs = {})
-        new(request_name, attrs).run
+      def request(request_name, attrs = {}, &block)
+        new(request_name, attrs).run(&block)
       end
     end
 
@@ -12,6 +12,7 @@ module DPDApi
     end
 
     def run
+      yield config if block_given?
       response = parse_response(get_response)
       if response.success?
         response
