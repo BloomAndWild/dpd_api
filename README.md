@@ -75,6 +75,15 @@ DPDApi::RequestHandler.request(:store_orders, attrs)
 DPDApi::RequestHandler.request(:get_tracking_data, tracking_number: "123456789")
 ```
 
+### Per request configuration
+```ruby
+DPDApi::RequestHandler.request(:get_auth) do |config|
+  config.username = ""
+  config.password = ""
+  config.sandbox = true
+end
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
