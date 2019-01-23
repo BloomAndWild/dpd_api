@@ -1,17 +1,19 @@
 module DPDApi
   class RequestHandler
     class << self
-      def request(request_name, attrs = {})
-        new(request_name, attrs).run
+      def request(request_name, attrs = {}, &block)
+        new(request_name, attrs).run(&block)
       end
     end
 
     def initialize(request_name, attrs)
       @request_name = request_name.to_sym
       @attrs = attrs
+      @config = Client.config.dup
     end
 
     def run
+      yield config if block_given?
       response = parse_response(get_response)
       if response.success?
         response
@@ -38,7 +40,7 @@ module DPDApi
     end
 
     private
-    attr_accessor :request_name, :attrs
+    attr_accessor :request_name, :attrs, :config
 
     def get_response
       xml = xml_builder(request.xml_attributes).build
@@ -80,10 +82,6 @@ module DPDApi
         username: config.username,
         password: config.password,
       }
-    end
-
-    def config
-      @config ||= Client.config
     end
   end
 end

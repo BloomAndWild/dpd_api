@@ -15,6 +15,39 @@ describe DPDApi::RequestHandler do
     end
   end
 
+  context "with per request configuration" do
+    before do
+      DPDApi::Client.configure do |config|
+        config.username = ENV['DPD_USERNAME']
+        config.password = order_password
+        config.sandbox = true
+      end
+    end
+
+    let(:order_password) { "other_password" }
+    let(:config) { DPDApi::Client.config }
+
+    it "accepts new configuration options" do
+      VCR.use_cassette('different_configuration') do
+        response = described_class.request(:get_auth) do |config|
+          config.password = ENV['DPD_PASSWORD']
+        end
+
+        expect(response.token).to eq("LTI5MzMzODEyNzE4OTY4MzY1NTARMTUzMzc3OTUyMjU2MwRR")
+      end
+    end
+
+    it "doesn't change base config" do
+      VCR.use_cassette('different_configuration') do
+        described_class.request(:get_auth) do |config|
+          config.password = ENV['DPD_PASSWORD']
+        end
+
+        expect(config.password).to eq(order_password)
+      end
+    end
+  end
+
   context "get_auth" do
     it "fetches auth token" do
       VCR.use_cassette('get_auth') do
