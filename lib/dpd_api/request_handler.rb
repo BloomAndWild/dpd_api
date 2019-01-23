@@ -9,6 +9,7 @@ module DPDApi
     def initialize(request_name, attrs)
       @request_name = request_name.to_sym
       @attrs = attrs
+      @config = Client.config.dup
     end
 
     def run
@@ -39,7 +40,7 @@ module DPDApi
     end
 
     private
-    attr_accessor :request_name, :attrs
+    attr_accessor :request_name, :attrs, :config
 
     def get_response
       xml = xml_builder(request.xml_attributes).build
@@ -81,10 +82,6 @@ module DPDApi
         username: config.username,
         password: config.password,
       }
-    end
-
-    def config
-      @config ||= Client.config
     end
   end
 end
