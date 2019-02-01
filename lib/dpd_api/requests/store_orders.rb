@@ -33,7 +33,7 @@ module DPDApi
         attrs[:customer_number] ||= if Client.config.sandbox
           1
         else
-          attrs.fetch(:username)
+          attrs.fetch(:account_number) || attrs.fetch(:username)
         end
 
         attrs.fetch(:recipient_address)
