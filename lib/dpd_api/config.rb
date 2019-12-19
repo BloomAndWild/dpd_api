@@ -1,7 +1,7 @@
 module DPDApi
   class Config
     attr_writer :soap_endpoint, :service_wsdl, :logger
-    attr_accessor :username, :password, :sandbox
+    attr_accessor :username, :password, :sandbox, :adapter
 
     def service_wsdl
       @service_wsdl ||= {

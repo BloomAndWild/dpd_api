@@ -24,7 +24,7 @@ module DPDApi
 
     def client
       Savon.client(
-        adapter: :httpclient,
+        adapter: config.adapter || :httpclient,
         wsdl: config.service_wsdl[request_name],
         endpoint: config.soap_endpoint[request_name],
         namespace: config.soap_endpoint[request_name],
