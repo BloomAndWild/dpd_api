@@ -1,7 +1,6 @@
-require 'openssl'
-require 'base64'
-require 'savon'
-require 'faraday'
+require "openssl"
+require "base64"
+require "savon"
 require_relative "dpd_api/version"
 require_relative "dpd_api/client"
 require_relative "dpd_api/config"
