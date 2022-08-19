@@ -3,7 +3,7 @@ require "spec_helper"
 describe DPDApi::RequestHandler do
   before do
     DPDApi::Client.configure do |config|
-      config.username = ENV['DPD_USERNAME']
+      config.username = ENV.fetch('DPD_USERNAME', 'sandboxdpd')
       config.password = ENV['DPD_PASSWORD']
       config.sandbox = true
       config.logger = Logger.new(STDOUT)
@@ -18,7 +18,7 @@ describe DPDApi::RequestHandler do
   context "with per request configuration" do
     before do
       DPDApi::Client.configure do |config|
-        config.username = ENV['DPD_USERNAME']
+        config.username = ENV.fetch('DPD_USERNAME', 'sandboxdpd')
         config.password = order_password
         config.sandbox = true
       end
