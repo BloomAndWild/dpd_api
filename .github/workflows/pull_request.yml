@@ -1,0 +1,16 @@
+name: Pull Request
+on:
+  pull_request:
+    types: [opened, labeled, synchronize, reopened]
+jobs:
+  RunTests:
+    runs-on: ubuntu-latest
+    steps:
+      # Setup
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      # Test
+      - name: Test with rake
+        run: bundle exec rake

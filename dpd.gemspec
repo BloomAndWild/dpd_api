@@ -21,9 +21,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "savon", "~> 2.11"
-  spec.add_dependency "faraday", "~> 0.9"
-  spec.add_dependency "httpclient", "~> 2.8.3"
+  spec.add_dependency "savon", "~> 2.13.0"
+  spec.add_dependency "httpclient"
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
