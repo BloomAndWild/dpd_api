@@ -6,7 +6,7 @@ module DPDApi
       end
 
       def tracking_url
-        "https://tracking.dpd.de/status/en_US/parcel/#{tracking_number}"
+        "https://my.dpd.de/redirect.aspx?action=1&locale=en_US&parcelno=#{tracking_number}"
       end
 
       def tracking_number
