@@ -28,8 +28,8 @@ module DPDApi
         wsdl: config.service_wsdl[request_name],
         endpoint: config.soap_endpoint[request_name],
         namespace: config.soap_endpoint[request_name],
-        open_timeout: 600,
-        read_timeout: 600,
+        open_timeout: config.open_timeout || 10, # Seconds
+        read_timeout: config.read_timeout || 30, # Seconds
         logger: config.logger,
         log_level: config.logger.level.zero? ? :debug : :info,
         log: config.logger.level.zero?,
