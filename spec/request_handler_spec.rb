@@ -1,12 +1,17 @@
 require "spec_helper"
 
 describe DPDApi::RequestHandler do
+  let(:open_timeout) { nil }
+  let(:read_timeout) { nil }
+
   before do
     DPDApi::Client.configure do |config|
       config.username = ENV.fetch('DPD_USERNAME', 'sandboxdpd')
       config.password = ENV['DPD_PASSWORD']
       config.sandbox = true
       config.logger = Logger.new(STDOUT)
+      config.open_timeout = open_timeout if open_timeout
+      config.read_timeout = read_timeout if read_timeout
       config.logger.level = if ENV['LOGGER_LEVEL'].nil?
         1
       else
@@ -144,6 +149,53 @@ describe DPDApi::RequestHandler do
           tracking_number: "00000000000000",
         )
         expect(response.shipment_info).to eq({})
+      end
+    end
+  end
+
+  describe "configuring Savon timeouts" do
+    before do
+      allow(Savon).to receive(:client).and_call_original
+    end
+
+    context "with default configuration" do
+      it "calls Savon with the expected timeout config" do
+        VCR.use_cassette('get_tracking_data_wrong_number') do
+          described_class.request(
+            :get_tracking_data,
+            token: "LTI5MzMzODEyNzE4OTY4MzY1NTARMTUzMzc3OTUyMjU2MwRR",
+            tracking_number: "00000000000000",
+          )
+          expect(Savon).to have_received(:client)
+            .with(
+              hash_including(
+                open_timeout: 10,
+                read_timeout: 30
+              )
+            )
+        end
+      end
+    end
+
+    context "with custom configuration" do
+      let(:open_timeout) { 5 }
+      let(:read_timeout) { 15 }
+
+      it "calls Savon with the expected timeout config" do
+        VCR.use_cassette('get_tracking_data_wrong_number') do
+          described_class.request(
+            :get_tracking_data,
+            token: "LTI5MzMzODEyNzE4OTY4MzY1NTARMTUzMzc3OTUyMjU2MwRR",
+            tracking_number: "00000000000000",
+          )
+          expect(Savon).to have_received(:client)
+            .with(
+              hash_including(
+                open_timeout: 5,
+                read_timeout: 15
+              )
+            )
+        end
       end
     end
   end
