@@ -11,7 +11,7 @@ http_interactions:
           <soapenv:Header>
             <ns:authentication>
               <delisId><USERNAME></delisId>
-              <authToken>LTE3OTYwNjU1ODk5MTEzMjQ0MjERMTUzMjY3MTExMTgzNARR</authToken>
+              <authToken>LTU1OTgxNjU2Mzk1Njg0MTczMQRRMTY2MTMzMDI2NjY1NQRR</authToken>
               <messageLanguage>en_EN</messageLanguage>
             </ns:authentication>
           </soapenv:Header>
@@ -23,11 +23,11 @@ http_interactions:
         </soapenv:Envelope>
     headers:
       User-Agent:
-      - HTTPClient/1.0 (2.8.3, ruby 2.5.1 (2018-03-29))
+      - HTTPClient/1.0 (2.8.3, ruby 3.1.6 (2024-05-29))
       Accept:
       - "*/*"
       Date:
-      - Wed, 08 Aug 2018 12:03:25 GMT
+      - Mon, 13 Jan 2025 16:07:32 GMT
       Soapaction:
       - '"http://dpd.com/common/service/ParcelLifeCycleService/2.0/getTrackingData"'
       Content-Type:
@@ -39,16 +39,12 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Date:
-      - Wed, 08 Aug 2018 12:03:25 GMT
-      Server:
-      - Jetty(6.1.x)
       Content-Type:
       - text/xml; charset=utf-8
-      Vary:
-      - Accept-Encoding
-      Transfer-Encoding:
-      - chunked
+      Content-Length:
+      - '3189'
+      Server:
+      - Jetty(6.1.x)
     body:
       encoding: UTF-8
       string: '<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><ns2:getTrackingDataResponse
@@ -67,6 +63,5 @@ http_interactions:
         parcel delivery centre.</content><bold>false</bold><paragraph>false</paragraph></content><linkTarget/></description><statusHasBeenReached>false</statusHasBeenReached><isCurrentStatus>false</isCurrentStatus><showContactInfo>false</showContactInfo></statusInfo><statusInfo><status>DELIVERED</status><label><content>Parcel
         delivered</content><bold>true</bold><paragraph>false</paragraph></label><description><content><content>Your
         parcel has been delivered successfully.</content><bold>false</bold><paragraph>false</paragraph></content><linkTarget/></description><statusHasBeenReached>false</statusHasBeenReached><isCurrentStatus>false</isCurrentStatus><showContactInfo>false</showContactInfo></statusInfo></trackingresult></ns2:getTrackingDataResponse></soap:Body></soap:Envelope>'
-    http_version: 
-  recorded_at: Wed, 08 Aug 2018 12:03:26 GMT
-recorded_with: VCR 4.0.0
+  recorded_at: Mon, 13 Jan 2025 16:07:32 GMT
+recorded_with: VCR 6.3.1

@@ -38,7 +38,7 @@ describe DPDApi::RequestHandler do
           config.password = ENV['DPD_PASSWORD']
         end
 
-        expect(response.token).to eq("LTI5MzMzODEyNzE4OTY4MzY1NTARMTUzMzc3OTUyMjU2MwRR")
+        expect(response.token).to eq("LTU1OTgxNjU2Mzk1Njg0MTczMQRRMTY2MTMzMDI2NjY1NQRR")
       end
     end
 
@@ -57,7 +57,7 @@ describe DPDApi::RequestHandler do
     it "fetches auth token" do
       VCR.use_cassette('get_auth') do
         response = described_class.request(:get_auth)
-        expect(response.token).to eq("LTI5MzMzODEyNzE4OTY4MzY1NTARMTUzMzc3OTUyMjU2MwRR")
+        expect(response.token).to eq("LTU1OTgxNjU2Mzk1Njg0MTczMQRRMTY2MTMzMDI2NjY1NQRR")
       end
     end
 
@@ -121,7 +121,7 @@ describe DPDApi::RequestHandler do
       VCR.use_cassette('get_tracking_data') do
         response = described_class.request(
           :get_tracking_data,
-          token: "LTI5MzMzODEyNzE4OTY4MzY1NTARMTUzMzc3OTUyMjU2MwRR",
+          token: "LTU1OTgxNjU2Mzk1Njg0MTczMQRRMTY2MTMzMDI2NjY1NQRR",
           tracking_number: "09981122330100",
         )
         expect(response.shipment_info[:status]).to eq("SHIPMENT")
@@ -145,7 +145,7 @@ describe DPDApi::RequestHandler do
       VCR.use_cassette('get_tracking_data_wrong_number') do
         response = described_class.request(
           :get_tracking_data,
-          token: "LTI5MzMzODEyNzE4OTY4MzY1NTARMTUzMzc3OTUyMjU2MwRR",
+          token: "LTU1OTgxNjU2Mzk1Njg0MTczMQRRMTY2MTMzMDI2NjY1NQRR",
           tracking_number: "00000000000000",
         )
         expect(response.shipment_info).to eq({})
@@ -163,7 +163,7 @@ describe DPDApi::RequestHandler do
         VCR.use_cassette('get_tracking_data_wrong_number') do
           described_class.request(
             :get_tracking_data,
-            token: "LTI5MzMzODEyNzE4OTY4MzY1NTARMTUzMzc3OTUyMjU2MwRR",
+            token: "LTU1OTgxNjU2Mzk1Njg0MTczMQRRMTY2MTMzMDI2NjY1NQRR",
             tracking_number: "00000000000000",
           )
           expect(Savon).to have_received(:client)
@@ -185,7 +185,7 @@ describe DPDApi::RequestHandler do
         VCR.use_cassette('get_tracking_data_wrong_number') do
           described_class.request(
             :get_tracking_data,
-            token: "LTI5MzMzODEyNzE4OTY4MzY1NTARMTUzMzc3OTUyMjU2MwRR",
+            token: "LTU1OTgxNjU2Mzk1Njg0MTczMQRRMTY2MTMzMDI2NjY1NQRR",
             tracking_number: "00000000000000",
           )
           expect(Savon).to have_received(:client)
