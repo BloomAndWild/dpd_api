@@ -71,6 +71,8 @@ module DPDApi
         attrs[:notification_channel] ||= 1
         attrs[:notification_value] ||= attrs[:shipper_address][:email]
         attrs[:notification_locale] ||= "EN"
+        attrs.fetch(:notification_rule)
+        attrs[:food] ||= 0
         attrs
       end
     end
