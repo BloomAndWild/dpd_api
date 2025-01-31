@@ -61,7 +61,7 @@
           <orderType><%= order_type %></orderType>
           <saturdayDelivery><%= saturday_delivery %></saturdayDelivery>
           <% if notification_channel > 0 && notification_value %>
-            <% express_predict_service = product.in?("E18", "E12") %>
+            <% express_predict_service = ["E18", "E12"].include?(product) %>
             <% if express_predict_service && food == 0 %>
               <proactiveNotification>
                 <channel><%= notification_channel %></channel>
@@ -79,9 +79,6 @@
                 <channel><%= notification_channel %></channel>
                 <value><%= notification_value %></value>
                 <language><%= notification_locale %></language>
-                <% if notification_rule %>
-                  <rule><%= notification_rule %></rule>
-                <% end %>
               </predict>
             <% end %>
           <% end %>
