@@ -38,11 +38,17 @@ token = DPDApi::RequestHandler.request(:get_auth).token
 ### New order:
 ```ruby
 attrs = {
-  product: "CL",
+  product: "CL", # could be others such as E12, E18 etc
   delivery_on: Date.parse("2018-06-06"),
   token: token,
+  username: username,
+  locale: locale, # optional, the gem will default to en_EN
+  file_format: "PDF", # optional, the gem defaults to PDF
+  paper_format: "A4", # optional, the gem defaults to A4
+  sequence_number: "1", # optional, the gem defaults to 1
   depot: "0160",
-  customer_number: "1",
+  complete_delivery: 0, # optional, the gem defaults to 0
+  customer_number: "1", # optional, defaults to 1 for sandbox, or username for live
   weight: "100", # parcel weight in dag
   shipper_address: {
     name1: "",
@@ -51,20 +57,34 @@ attrs = {
     country: "DE",
     zip_code: "",
     city: "",
+    email: "", # optional
+    phone: "", # optional
   },
   recipient_address: {
     name1: "",
-    name2: "",
+    name2: "", # optional
     street_name: "",
     street_number: "",
     country: "",
     zip_code: "",
     city: "",
-    comment: "",
-    contact: "",
-    phone: "",
-    email: "",
+    comment: "", # optional
+    contact: "", # optional
+    phone: "", # optional
+    email: "", # optional
+    customer_reference: "", # optional
+    customer_reference_2: "", # optional
   }
+  order_type: "consignment", # optional, defaults to consignment
+  saturday_delivery: 0, # optional, defaults to 0
+  add_service: 3, # optional, defaults to 3 (written permission to deposit goods by Sender)
+  message_number: 14, # optional
+  parcel_parameter: attrs[:recipient_address][:comment], # optional
+  notification_channel: 1, # optional, defaults to 1 (values are 1: email, 2: telephone, 3: SMS, 6: FAX, 7: postcard)
+  notification_value: attrs[:shipper_address][:email], # optional, defaults to the shipper email
+  notification_locale: "EN", # optional, defaults to EN
+  notification_rule: nil, # optional
+  food: 0, # optional, defaults to 0
 }
 
 DPDApi::RequestHandler.request(:store_orders, attrs)

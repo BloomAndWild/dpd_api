@@ -28,28 +28,20 @@ module DPDApi
         attrs[:shipper_address].fetch(:zip_code)
         attrs[:shipper_address].fetch(:city)
         attrs[:shipper_address].fetch(:country)
-        attrs[:shipper_address][:phone] # Optional
-        attrs[:shipper_address][:email] # Optional
-        attrs[:customer_number] ||= if Client.config.sandbox
-          1
-        else
-          attrs.fetch(:account_number) || attrs.fetch(:username)
-        end
+        attrs[:customer_number] ||=
+          if Client.config.sandbox
+            1
+          else
+            attrs.fetch(:account_number) || attrs.fetch(:username)
+          end
 
         attrs.fetch(:recipient_address)
         attrs[:recipient_address].fetch(:name1)
-        attrs[:recipient_address][:name2] # Optional
         attrs[:recipient_address].fetch(:street_name)
         attrs[:recipient_address].fetch(:street_number)
         attrs[:recipient_address].fetch(:zip_code)
         attrs[:recipient_address].fetch(:city)
         attrs[:recipient_address].fetch(:country)
-        attrs[:recipient_address][:phone] # Optional
-        attrs[:recipient_address][:email] # Optional
-        attrs[:recipient_address][:comment] # Optional
-        attrs[:recipient_address][:contact] # Optional
-        attrs[:recipient_address][:customer_reference] # Optional
-        attrs[:recipient_address][:customer_reference_2] # Optional
 
         # Possible values:
         # consignment
@@ -71,6 +63,7 @@ module DPDApi
         attrs[:notification_channel] ||= 1
         attrs[:notification_value] ||= attrs[:shipper_address][:email]
         attrs[:notification_locale] ||= "EN"
+        attrs[:food] ||= 0
         attrs
       end
     end
