@@ -66,10 +66,10 @@
               <proactiveNotification>
                 <channel><%= notification_channel %></channel>
                 <value><%= notification_value %></value>
-                <language><%= notification_locale %></language>
                 <% if notification_rule %>
                   <rule><%= notification_rule %></rule>
                 <% end %>
+                <language><%= notification_locale %></language>
               </proactiveNotification>
             <% else %>
               <% if food == 1 %>
