@@ -19,8 +19,9 @@ VCR.configure do |c|
     # record: :all,
   }
 
-  c.filter_sensitive_data("<USERNAME>") { DPDApi::Client.config.username }
-  c.filter_sensitive_data("<PASSWORD>") { DPDApi::Client.config.password }
+  binding.pry
+  c.filter_sensitive_data("<USERNAME>") { ENV.fetch('DPD_USERNAME', 'sandboxdpd') }
+  c.filter_sensitive_data("<PASSWORD>") { ENV['DPD_PASSWORD'] }
 end
 
 RSpec.configure do |config|
