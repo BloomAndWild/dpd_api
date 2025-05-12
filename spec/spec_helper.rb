@@ -19,7 +19,6 @@ VCR.configure do |c|
     # record: :all,
   }
 
-  binding.pry
   c.filter_sensitive_data("<USERNAME>") { ENV.fetch('DPD_USERNAME', 'sandboxdpd') }
   c.filter_sensitive_data("<PASSWORD>") { ENV['DPD_PASSWORD'] }
 end
